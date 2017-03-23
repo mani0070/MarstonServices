@@ -15,5 +15,7 @@ Configuration Services
         @include "/Software/AzureRM"
         @include "/Software/JDK"
         @include "/Software/VisualStudioCode"
+
+        @include "/Windows/IIS.ps1"
     }
 }
