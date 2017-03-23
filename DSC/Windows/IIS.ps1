@@ -64,7 +64,7 @@ WindowsFeature WebWebSockets
     Ensure = 'Present'
     Name = 'Web-WebSockets'
 }
-WindowsFeature  WebPerformance
+WindowsFeature WebPerformance
 {
     Ensure = 'Present'
     Name = 'Web-Mgmt-Tools'
