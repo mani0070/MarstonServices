@@ -16,8 +16,8 @@ Configuration Services
         @include "/Software/JDK"
         @include "/Software/VisualStudioCode"
 
-        @include "/Windows/Defender.ps1"
-        @include "/Windows/DotNet.ps1"
-        @include "/Windows/IIS.ps1"
+        @include "/Windows/Defender"
+        @include "/Windows/DotNet"
+        @include "/Windows/IIS"
     }
 }
