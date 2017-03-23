@@ -64,10 +64,3 @@ WindowsFeature WebWebSockets
     Ensure = 'Present'
     Name = 'Web-WebSockets'
 }
-WindowsFeature WebPerformance
-{
-    Ensure = 'Present'
-    Name = 'Web-Mgmt-Tools'
-    IncludeAllSubFeature = $true 
-}
-   
