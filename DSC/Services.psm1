@@ -24,7 +24,7 @@ Configuration Services
         @include "/Windows/IIS"
 
         @include "/TeamCity/Archive"
-        @include "/TeamCity/BuidAgent"
+        @include "/TeamCity/BuildAgent"
         @include "/TeamCity/Server"
 
         xFirewall HTTPFirewall
