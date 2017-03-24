@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "dnsZone": {
+            "type": "string"
+        },
+        "blueIpAddress": {
+            "type": "string"
+        },
+        "greenIpAddress": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/trafficManagerProfiles",
+            "name": "[parameters('trafficManagerProfiles_servicesmm_name')]",
+            "apiVersion": "2015-11-01",
+            "location": "global",
+            "properties": {
+                "profileStatus": "Enabled",
+                "trafficRoutingMethod": "Priority",
+                "dnsConfig": {
+                    "relativeName": "[parameters('trafficManagerProfiles_servicesmm_name')]",
+                    "fqdn": "[concat(parameters('trafficManagerProfiles_servicesmm_name'),'.trafficmanager.net')]",
+                    "ttl": 30
+                },
+                "monitorConfig": {
+                    "protocol": "HTTPS",
+                    "port": 443,
+                    "path": "/"
+                },
+                "endpoints": [
+                    {
+                        "name": "Blue",
+                        "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                        "properties": {
+                            "endpointStatus": "Disabled",
+                            "targetResourceId": "[parameters('trafficManagerProfiles_servicesmm_targetResourceId')]",
+                            "target": "teamcitystack-77da.northeurope.cloudapp.azure.com",
+                            "priority": 2,
+                            "endpointLocation": "North Europe"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
