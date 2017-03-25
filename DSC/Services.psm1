@@ -27,6 +27,11 @@ Configuration Services
         @include "/TeamCity/BuildAgent"
         @include "/TeamCity/Server"
 
+        @include "/ProGet/ProGet"
+
+        @include "/Octopus/OctopusServer"
+        @include "/Octopus/OctopusTentacle"
+
         xFirewall HTTPFirewall
         {
             Name                  = "HTTP"
