@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "dnsZone": {
-            "value": "#{DNSZone}"
+            "value": "#{DNSZone}."
         },
         "blueIpAddress": {
             "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs.ipAddress}"

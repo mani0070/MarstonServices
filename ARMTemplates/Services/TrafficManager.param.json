@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "trafficManagerName": {
+            "value": "#{TrafficManagerName}"
+        },
+        "trafficManagerRelativeName": {
+            "value": "#{TrafficManagerRelativeName}"
+        },
+        "bluePublicIpResourceId": {
+            "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs.resourceId}"
+        },
+        "bluePublicIpFqdn": {
+            "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs.fqdn}"
+        },
+        "greenPublicIpResourceId": {
+            "value": "#{Octopus.Action[Public IP - Green].Output.AzureRMOutputs.resourceId}"
+        },
+        "greenPublicIpFqdn": {
+            "value": "#{Octopus.Action[Public IP - Green].Output.AzureRMOutputs.fqdn}"
+        }
+    }
+}

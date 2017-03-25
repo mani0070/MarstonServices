@@ -2,28 +2,37 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "dnsZone": {
+        "trafficManagerName": {
             "type": "string"
         },
-        "blueIpAddress": {
+        "trafficManagerRelativeName": {
             "type": "string"
         },
-        "greenIpAddress": {
+        "bluePublicIpResourceId": {
+            "type": "string"
+        },
+        "bluePublicIpFqdn": {
+            "type": "string"
+        },
+        "greenPublicIpResourceId": {
+            "type": "string"
+        },
+        "greenPublicIpFqdn": {
             "type": "string"
         }
     },
     "resources": [
         {
             "type": "Microsoft.Network/trafficManagerProfiles",
-            "name": "[parameters('trafficManagerProfiles_servicesmm_name')]",
+            "name": "[parameters('trafficManagerName')]",
             "apiVersion": "2015-11-01",
             "location": "global",
             "properties": {
                 "profileStatus": "Enabled",
                 "trafficRoutingMethod": "Priority",
                 "dnsConfig": {
-                    "relativeName": "[parameters('trafficManagerProfiles_servicesmm_name')]",
-                    "fqdn": "[concat(parameters('trafficManagerProfiles_servicesmm_name'),'.trafficmanager.net')]",
+                    "relativeName": "[parameters('trafficManagerRelativeName')]",
+                    "fqdn": "[concat(parameters('trafficManagerRelativeName'),'.trafficmanager.net')]",
                     "ttl": 30
                 },
                 "monitorConfig": {
@@ -37,7 +46,7 @@
                         "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                         "properties": {
                             "endpointStatus": "Disabled",
-                            "targetResourceId": "[parameters('trafficManagerProfiles_servicesmm_targetResourceId')]",
+                            "targetResourceId": "[parameters('bluePublicIpResourceId')]",
                             "target": "teamcitystack-77da.northeurope.cloudapp.azure.com",
                             "priority": 2,
                             "endpointLocation": "North Europe"
