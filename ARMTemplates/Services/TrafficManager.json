@@ -46,7 +46,7 @@
                         "endpointStatus": "Disabled",
                         "targetResourceId": "[parameters('bluePublicIpResourceId')]",
                         "target": "[parameters('bluePublicIpFqdn')]",
-                        "priority": 2,
+                        "priority": 1,
                         "endpointLocation": "[resourceGroup().location]"
                     }
                 },{
