@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-    <id>Services.ARMTemplates</id>
+    <id>Services.ARMTemplates.Services</id>
     <version>$version$</version>
     <description>Services Marston Me - ARM Templates</description>
     <authors>Paul Marston</authors>
     </metadata>
     <files>
-        <file src="*.json" target="content" />
+        <file src="*.json" target="" />
     </files>
 </package>

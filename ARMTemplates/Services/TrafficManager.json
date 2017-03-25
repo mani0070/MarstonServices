@@ -21,39 +21,45 @@
             "type": "string"
         }
     },
-    "resources": [
-        {
-            "type": "Microsoft.Network/trafficManagerProfiles",
-            "name": "[parameters('trafficManagerName')]",
-            "apiVersion": "2015-11-01",
-            "location": "global",
-            "properties": {
-                "profileStatus": "Enabled",
-                "trafficRoutingMethod": "Priority",
-                "dnsConfig": {
-                    "relativeName": "[parameters('trafficManagerRelativeName')]",
-                    "fqdn": "[concat(parameters('trafficManagerRelativeName'),'.trafficmanager.net')]",
-                    "ttl": 30
-                },
-                "monitorConfig": {
-                    "protocol": "HTTPS",
-                    "port": 443,
-                    "path": "/"
-                },
-                "endpoints": [
-                    {
-                        "name": "Blue",
-                        "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
-                        "properties": {
-                            "endpointStatus": "Disabled",
-                            "targetResourceId": "[parameters('bluePublicIpResourceId')]",
-                            "target": "teamcitystack-77da.northeurope.cloudapp.azure.com",
-                            "priority": 2,
-                            "endpointLocation": "North Europe"
-                        }
+    "resources": [{
+        "type": "Microsoft.Network/trafficManagerProfiles",
+        "name": "[parameters('trafficManagerName')]",
+        "apiVersion": "2015-11-01",
+        "location": "global",
+        "properties": {
+            "profileStatus": "Enabled",
+            "trafficRoutingMethod": "Priority",
+            "dnsConfig": {
+                "relativeName": "[parameters('trafficManagerRelativeName')]",
+                "fqdn": "[concat(parameters('trafficManagerRelativeName'),'.trafficmanager.net')]",
+                "ttl": 30
+            },
+            "monitorConfig": {
+                "protocol": "HTTPS",
+                "port": 443,
+                "path": "/"
+            },
+            "endpoints": [{
+                    "name": "Blue",
+                    "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                    "properties": {
+                        "endpointStatus": "Disabled",
+                        "targetResourceId": "[parameters('bluePublicIpResourceId')]",
+                        "target": "[parameters('bluePublicIpFqdn')]",
+                        "priority": 2,
+                        "endpointLocation": "[resourceGroup().location]"
                     }
-                ]
-            }
+                },{
+                    "name": "Green",
+                    "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                    "properties": {
+                        "endpointStatus": "Disabled",
+                        "targetResourceId": "[parameters('greenPublicIpResourceId')]",
+                        "target": "[parameters('greenPublicIpFqdn')]",
+                        "priority": 2,
+                        "endpointLocation": "[resourceGroup().location]"
+                    }
+                }]
         }
-    ]
+    }]
 }
