@@ -6,10 +6,10 @@
             "value": "#{DNSZone}"
         },
         "blueIpAddress": {
-            "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs.ipAddress}"
+            "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs[ipAddress]}"
         },
         "greenIpAddress": {
-            "value": "#{Octopus.Action[Public IP - Green].Output.AzureRMOutputs.ipAddress}"
+            "value": "#{Octopus.Action[Public IP - Green].Output.AzureRMOutputs[ipAddress]}"
         }
     }
 }
