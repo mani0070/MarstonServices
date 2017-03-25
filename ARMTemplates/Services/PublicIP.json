@@ -23,7 +23,7 @@
         }
     }],
     "outputs": {
-        "resourceIs": {
+        "resourceId": {
             "type": "string",
             "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpAddressName'))]"
         },
