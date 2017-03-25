@@ -11,6 +11,13 @@ Configuration Services
         
     Node Frontend
     {
+        @include "/Base/Windows/Defender"
+        @include "/Base/Windows/DotNet"
+        @include "/Base/Windows/IIS"
+
+        @include "/Base/ExternalCache"
+        @include "/Base/UrlRewrite2"
+        @include "/Base/ARRv3"
         @include "/Base/IEEnchancedSecurity"
         
         @include "/Software/7Zip"
@@ -18,10 +25,6 @@ Configuration Services
         @include "/Software/AzureRM"
         @include "/Software/JDK"
         @include "/Software/VisualStudioCode"
-
-        @include "/Windows/Defender"
-        @include "/Windows/DotNet"
-        @include "/Windows/IIS"
 
         @include "/TeamCity/Archive"
         @include "/TeamCity/BuildAgent"

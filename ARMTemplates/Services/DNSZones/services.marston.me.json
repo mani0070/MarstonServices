@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "zoneName": {
+            "type": "string",
+            "defaultValue": "services.marston.me"
+        },
+        "nodesNameserver1": {
+            "type": "string"
+        },
+        "nodesNameserver2": {
+            "type": "string"
+        },
+        "nodesNameserver3": {
+            "type": "string"
+        },
+        "nodesNameserver4": {
+            "type": "string"
+        }
+    },
+    "resources": [{
+        "type": "Microsoft.Network/dnszones/NS",
+        "name": "[concat(parameters('zoneName'), '/nodes')]",
+        "apiVersion": "2016-04-01",
+        "properties": {
+            "TTL": 3600,
+            "NSRecords": [{
+                    "nsdname": "[parameters('nodesNameserver1')]"
+                },
+                {
+                    "nsdname": "[parameters('nodesNameserver2')]"
+                },
+                {
+                    "nsdname": "[parameters('nodesNameserver3')]"
+                },
+                {
+                    "nsdname": "[parameters('nodesNameserver4')]"
+                }
+            ]
+        }
+    }]
+}

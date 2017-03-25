@@ -1,3 +1,8 @@
+WindowsFeature WebWebServer
+{
+    Ensure = 'Present'
+    Name = 'Web-WebServer'
+}
 WindowsFeature WebDefaultDoc
 {
     Ensure = 'Present'
@@ -64,7 +69,7 @@ WindowsFeature WebWebSockets
     Ensure = 'Present'
     Name = 'Web-WebSockets'
 }
-WindowsFeature  WebMgmtTools
+WindowsFeature WebMgmtTools
 {
     Ensure = 'Present'
     Name = 'Web-Mgmt-Tools'

@@ -1,6 +1,6 @@
 xRemoteFile VSCodeDownloader
 {
-    Uri = 'https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/VSCodeSetup-1.8.1.exe'
+    Uri = 'https://go.microsoft.com/fwlink/?LinkID=623230'
     DestinationPath = 'D:\VSCodeSetup.exe'
     MatchSource = $false
 }

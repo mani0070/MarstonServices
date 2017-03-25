@@ -21,10 +21,20 @@ xPackage OctopusDeployTentacle
     Ensure = 'Present'
     Name = 'Octopus Deploy Tentacle'
     Path  = 'D:\OctopusDeployTentacle.msi'
-    ProductId = ''
+    ProductId = 'DF4D8B4C-A3CD-42EF-B33D-B611027C505D'
     Arguments = "/quiet /l*v `"D:\OctopusDeployTentacle.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployTentacle"
+}
+Script OctopusTentacleWatchdog
+{
+    SetScript = {
+        & (Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe') watchdog --create --instances * --interval=5 *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Watchdog" }
+    }
+    TestScript = { $null -ne (Get-ScheduledTask -TaskName 'Octopus Watchdog Tentacle' -ErrorAction Ignore) }
+    GetScript = { @{} }
+    DependsOn = "[xPackage]OctopusDeployTentacle"
 }
 # $octopusConfigStateFile = Join-Path $octopusDeployRoot 'config.statefile'
 # $octopusConfigLogFile = Join-Path $octopusDeployRoot "OctopusTentacle.config.log"

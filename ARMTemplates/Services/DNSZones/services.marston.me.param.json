@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "nodesNameserver1": {
+            "value": "#{Octopus.Action[DNS Zone - nodes.services.marston.me].Output.AzureRMOutputs[nameserver1]}"
+        },
+        "nodesNameserver2": {
+            "value": "#{Octopus.Action[DNS Zone - nodes.services.marston.me].Output.AzureRMOutputs[nameserver2]}"
+        },
+        "nodesNameserver3": {
+            "value": "#{Octopus.Action[DNS Zone - nodes.services.marston.me].Output.AzureRMOutputs[nameserver3]}"
+        },
+        "nodesNameserver4": {
+            "value": "#{Octopus.Action[DNS Zone - nodes.services.marston.me].Output.AzureRMOutputs[nameserver4]}"
+        }
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "type": "string"
+        },
+        "servicePrincipalObjectId": {
+            "type": "string"
+        },
+        "azureUserObjectId": {
+            "type": "string"
+        }
+    },
+    "resources": [{
+        "type": "Microsoft.KeyVault/vaults",
+        "name": "[parameters('keyVaultName')]",
+        "apiVersion": "2015-06-01",
+        "location": "[resourceGroup().location]",
+        "properties": {
+            "tenantId": "[subscription().tenantId]",
+            "accessPolicies": [{
+                    "tenantId": "[subscription().tenantId]",
+                    "objectId": "[parameters('servicePrincipalObjectId')]",
+                    "permissions": {
+                        "keys": [
+                            "create",
+                            "decrypt",
+                            "encrypt",
+                            "get",
+                            "sign",
+                            "unwrapKey",
+                            "verify",
+                            "wrapKey"
+                        ],
+                        "secrets": [
+                            "get",
+                            "set"
+                        ]
+                    }
+                },
+                {
+                    "tenantId": "[subscription().tenantId]",
+                    "objectId": "[parameters('azureUserObjectId')]",
+                    "permissions": {
+                        "keys": [
+                            "all"
+                        ],
+                        "secrets": [
+                            "all"
+                        ]
+                    }
+                }
+            ],
+            "sku": {
+                "name": "Premium",
+                "family": "A"
+            }
+        }
+    }]
+}

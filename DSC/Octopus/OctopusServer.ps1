@@ -21,12 +21,21 @@ xPackage OctopusDeployServer
     Ensure = 'Present'
     Name = 'Octopus Deploy Server'
     Path  = 'D:\OctopusDeployServer.msi'
-    ProductId = ''
+    ProductId = 'E4B740A5-B2E1-45EB-AB43-DA071BEFC579'
     Arguments = "/quiet /l*v `"D:\OctopusDeployServer.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployServer"
 }
-
+Script OctopusServerWatchdog
+{
+    SetScript = {
+        & (Join-Path $env:ProgramFiles 'Octopus Deploy\Octopus\Octopus.Server.exe') watchdog --create --instances * --interval=5 *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Watchdog" }
+    }
+    TestScript = { $null -ne (Get-ScheduledTask -TaskName 'Octopus Watchdog OctopusServer' -ErrorAction Ignore) }
+    GetScript = { @{} }
+    DependsOn = "[xPackage]OctopusDeployServer"
+}
 #         $octopusConfigStateFile = Join-Path $octopusDeployRoot 'configuration.statefile'
 #         $octopusConfigLogFile = Join-Path $octopusDeployRoot "OctopusServer.$OctopusVersionToInstall.config.log"
 #         Script OctopusDeployConfiguration

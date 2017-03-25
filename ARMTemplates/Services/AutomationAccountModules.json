@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "automationName": {
+            "type": "string"
+        }
+    },
+    "resources": [{
+            "name": "[concat(parameters('automationName'), '/', 'xNetworking')]",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "properties": {
+                "contentLink": {
+                    "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/xnetworking.3.2.0.nupkg"
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('automationName'), '/', 'xPSDesiredStateConfiguration')]",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "properties": {
+                "contentLink": {
+                    "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/xpsdesiredstateconfiguration.6.0.0.nupkg"
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('automationName'), '/', 'PackageManagementProviderResource')]",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "properties": {
+                "contentLink": {
+                    "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/packagemanagementproviderresource.1.0.3.nupkg"
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('automationName'), '/', 'xSystemSecurity')]",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "properties": {
+                "contentLink": {
+                    "uri": "https://devopsgallerystorage.blob.core.windows.net/packages/xsystemsecurity.1.2.0.nupkg"
+                }
+            }
+        }
+    ]
+}
