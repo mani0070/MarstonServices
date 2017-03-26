@@ -14,11 +14,38 @@
         "bluePublicIpFqdn": {
             "type": "string"
         },
+        "blueStatus": {
+            "type": "string",
+            "allowedValues": [
+                "Enabled",
+                "Disabled"
+            ]
+        },
+        "bluePriority": {
+            "type": "int",
+            "allowedValues": [
+                1,
+                2
+            ]
+        },
         "greenPublicIpResourceId": {
             "type": "string"
         },
         "greenPublicIpFqdn": {
             "type": "string"
+        },
+        "greenStatus": {
+            "type": "string",
+            "allowedValues": [
+                "Enabled",
+                "Disabled"
+            ]
+        },
+        "greenPriority": {
+            "allowedValues": [
+                1,
+                2
+            ]
         }
     },
     "resources": [{
@@ -43,20 +70,20 @@
                     "name": "Blue",
                     "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                     "properties": {
-                        "endpointStatus": "Disabled",
+                        "endpointStatus": "[parameters('blueStatus')]",
                         "targetResourceId": "[parameters('bluePublicIpResourceId')]",
                         "target": "[parameters('bluePublicIpFqdn')]",
-                        "priority": 1,
+                        "priority": "[parameters('bluePriority')]",
                         "endpointLocation": "[resourceGroup().location]"
                     }
                 },{
                     "name": "Green",
                     "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                     "properties": {
-                        "endpointStatus": "Disabled",
+                        "endpointStatus": "[parameters('greenStatus')]",
                         "targetResourceId": "[parameters('greenPublicIpResourceId')]",
                         "target": "[parameters('greenPublicIpFqdn')]",
-                        "priority": 2,
+                        "priority": "[parameters('greenPriority')]",
                         "endpointLocation": "[resourceGroup().location]"
                     }
                 }]
