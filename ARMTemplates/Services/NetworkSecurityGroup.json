@@ -1,0 +1,78 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [{
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "name": "ServicesNSG",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2016-03-30",
+        "properties": {
+            "securityRules": [{
+                    "name": "HTTP",
+                    "properties": {
+                        "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "80",
+                        "sourceAddressPrefix": "Internet",
+                        "destinationAddressPrefix": "*",
+                        "access": "Allow",
+                        "priority": 100,
+                        "direction": "Inbound"
+                    }
+                },
+                {
+                    "name": "HTTPS",
+                    "properties": {
+                        "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "443",
+                        "sourceAddressPrefix": "Internet",
+                        "destinationAddressPrefix": "*",
+                        "access": "Allow",
+                        "priority": 110,
+                        "direction": "Inbound"
+                    }
+                },
+                {
+                    "name": "OctopusTentaclePoll-Home",
+                    "properties": {
+                        "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "10943",
+                        "sourceAddressPrefix": "82.69.58.153/32",
+                        "destinationAddressPrefix": "*",
+                        "access": "Allow",
+                        "priority": 310,
+                        "direction": "Inbound"
+                    }
+                },
+                {
+                    "name": "OctopusTentaclePoll-GLH",
+                    "properties": {
+                        "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "10943",
+                        "sourceAddressPrefix": "*",
+                        "destinationAddressPrefix": "*",
+                        "access": "Allow",
+                        "priority": 320,
+                        "direction": "Inbound"
+                    }
+                },
+                {
+                    "name": "RDP",
+                    "properties": {
+                        "protocol": "TCP",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "3389",
+                        "sourceAddressPrefix": "Internet",
+                        "destinationAddressPrefix": "*",
+                        "access": "Deny",
+                        "priority": 999,
+                        "direction": "Inbound"
+                    }
+                }
+            ]
+        }
+    }]
+}

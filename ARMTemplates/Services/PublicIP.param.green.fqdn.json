@@ -5,8 +5,11 @@
         "publicIpAddressName": {
             "value": "ServicesPIPGreen"
         },
-        "publicIpAddressDnsLabel": {
-            "value": "greenservicesmarstonme"
+        "publicIpAddressDns": {
+            "value": "green.nodes.services.marston.me"
+        },
+        "publicIpType": {
+            "value": "WithReverseFqdn"
         }
     }
 }
