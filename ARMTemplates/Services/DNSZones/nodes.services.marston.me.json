@@ -13,12 +13,30 @@
             "type": "string"
         }
     },
-    "resources": [
-        {
+    "resources": [{
             "type": "Microsoft.Network/dnszones",
             "name": "[parameters('zoneName')]",
             "apiVersion": "2016-04-01",
-            "location": "global"
+            "location": "global",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Network/dnszones/SOA",
+            "name": "[concat(parameters('zoneName'), '/@')]",
+            "apiVersion": "2016-04-01",
+            "properties": {
+                "TTL": 3600,
+                "SOARecord": {
+                    "email": "admin.marston.me",
+                    "expireTime": 86400,
+                    "minimumTTL": 30,
+                    "refreshTime": 3600,
+                    "retryTime": 300
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
+            ]
         },
         {
             "type": "Microsoft.Network/dnszones/A",
@@ -26,11 +44,9 @@
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,
-                "ARecords": [
-                    {
-                        "ipv4Address": "[parameters('blueIpAddress')]"
-                    }
-                ]
+                "ARecords": [{
+                    "ipv4Address": "[parameters('blueIpAddress')]"
+                }]
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
@@ -42,11 +58,9 @@
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,
-                "ARecords": [
-                    {
-                        "ipv4Address": "[parameters('greenIpAddress')]"
-                    }
-                ]
+                "ARecords": [{
+                    "ipv4Address": "[parameters('greenIpAddress')]"
+                }]
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
