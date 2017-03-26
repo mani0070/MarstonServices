@@ -9,16 +9,16 @@
             "value": "#{TrafficManagerRelativeName}"
         },
         "bluePublicIpResourceId": {
-            "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs[resourceId]}"
+            "value": "#{Octopus.Action[Public IP - Blue - Reverse FQDN].Output.AzureRMOutputs[resourceId]}"
         },
         "bluePublicIpFqdn": {
-            "value": "#{Octopus.Action[Public IP - Blue].Output.AzureRMOutputs[fqdn]}"
+            "value": "#{Octopus.Action[Public IP - Blue - Reverse FQDN].Output.AzureRMOutputs[fqdn]}"
         },
         "greenPublicIpResourceId": {
-            "value": "#{Octopus.Action[Public IP - Green].Output.AzureRMOutputs[resourceId]}"
+            "value": "#{Octopus.Action[Public IP - Green - Reverse FQDN].Output.AzureRMOutputs[resourceId]}"
         },
         "greenPublicIpFqdn": {
-            "value": "#{Octopus.Action[Public IP - Green].Output.AzureRMOutputs[fqdn]}"
+            "value": "#{Octopus.Action[Public IP - Green - Reverse FQDN].Output.AzureRMOutputs[fqdn]}"
         }
     }
 }

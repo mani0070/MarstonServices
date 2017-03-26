@@ -61,8 +61,8 @@
         "timestamp": {
             "value": "#{Octopus.Deployment.CreatedUtc}"
         },
-        "publicIpAddressResourceGroup": {
-            "value": "#{BackendResourceGroupName}"
+        "servicesResourceGroupName": {
+            "value": "#{ServicesResourceGroupName}"
         }
     }
 }

@@ -30,7 +30,7 @@
         "nsgName": {
             "type": "string"
         },
-        "publicIpAddressResourceGroup": {
+        "servicesResourceGroupName": {
             "type": "string"
         },
         "publicIpAddressName": {
@@ -50,7 +50,7 @@
         }
     },
     "variables": {
-        "virtualNetworkId": "[resourceId('ServicesBackend','Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
+        "virtualNetworkId": "[resourceId(parameters('servicesResourceGroupName'),'Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
         "subnetId": "[concat(variables('virtualNetworkId'),'/subnets/', 'Default')]"
     },
     "resources": [
@@ -112,7 +112,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId(parameters('publicIpAddressResourceGroup'), 'Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]"
+                                "id": "[resourceId(parameters('servicesResourceGroupName'), 'Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetId')]"
@@ -121,7 +121,7 @@
                     }
                 ],
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
+                    "id": "[resourceId(parameters('servicesResourceGroupName'), 'Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
                 }
             }
         },
