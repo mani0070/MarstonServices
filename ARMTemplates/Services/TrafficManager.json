@@ -8,12 +8,6 @@
         "trafficManagerRelativeName": {
             "type": "string"
         },
-        "bluePublicIpResourceId": {
-            "type": "string"
-        },
-        "bluePublicIpFqdn": {
-            "type": "string"
-        },
         "blueStatus": {
             "type": "string",
             "allowedValues": [
@@ -28,12 +22,6 @@
                 2
             ]
         },
-        "greenPublicIpResourceId": {
-            "type": "string"
-        },
-        "greenPublicIpFqdn": {
-            "type": "string"
-        },
         "greenStatus": {
             "type": "string",
             "allowedValues": [
@@ -42,6 +30,7 @@
             ]
         },
         "greenPriority": {
+            "type": "int",
             "allowedValues": [
                 1,
                 2
@@ -71,8 +60,8 @@
                     "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                     "properties": {
                         "endpointStatus": "[parameters('blueStatus')]",
-                        "targetResourceId": "[parameters('bluePublicIpResourceId')]",
-                        "target": "[parameters('bluePublicIpFqdn')]",
+                        "targetResourceId": "[resourceId('Microsoft.Network/publicIPAddresses', 'ServicesPIPBlue')]",
+                        "target": "blue.nodes.services.marston.me",
                         "priority": "[parameters('bluePriority')]",
                         "endpointLocation": "[resourceGroup().location]"
                     }
@@ -81,8 +70,8 @@
                     "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
                     "properties": {
                         "endpointStatus": "[parameters('greenStatus')]",
-                        "targetResourceId": "[parameters('greenPublicIpResourceId')]",
-                        "target": "[parameters('greenPublicIpFqdn')]",
+                        "targetResourceId": "[resourceId('Microsoft.Network/publicIPAddresses', 'ServicesPIPGreen')]",
+                        "target": "green.nodes.services.marston.me",
                         "priority": "[parameters('greenPriority')]",
                         "endpointLocation": "[resourceGroup().location]"
                     }

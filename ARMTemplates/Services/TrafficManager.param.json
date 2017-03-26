@@ -3,28 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "trafficManagerName": {
-            "value": "#{TrafficManagerName}"
+            "value": "ServicesMarstonMe"
         },
         "trafficManagerRelativeName": {
-            "value": "#{TrafficManagerRelativeName}"
-        },
-        "bluePublicIpResourceId": {
-            "value": "#{Octopus.Action[Public IP - Blue - Reverse FQDN].Output.AzureRMOutputs[resourceId]}"
-        },
-        "bluePublicIpFqdn": {
-            "value": "#{Octopus.Action[Public IP - Blue - Reverse FQDN].Output.AzureRMOutputs[fqdn]}"
+            "value": "servicesmarstonme"
         },
         "blueStatus": {
             "value": "#{TrafficManagerBlueStatus}"
         },
         "bluePriority": {
             "value": "#{TrafficManagerBluePriority}"
-        },
-        "greenPublicIpResourceId": {
-            "value": "#{Octopus.Action[Public IP - Green - Reverse FQDN].Output.AzureRMOutputs[resourceId]}"
-        },
-        "greenPublicIpFqdn": {
-            "value": "#{Octopus.Action[Public IP - Green - Reverse FQDN].Output.AzureRMOutputs[fqdn]}"
         },
         "greenStatus": {
             "value": "#{TrafficManagerGreenStatus}"
