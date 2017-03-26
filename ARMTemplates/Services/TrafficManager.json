@@ -16,10 +16,10 @@
             ]
         },
         "bluePriority": {
-            "type": "int",
+            "type": "string",
             "allowedValues": [
-                1,
-                2
+                "1",
+                "2"
             ]
         },
         "greenStatus": {
@@ -30,10 +30,10 @@
             ]
         },
         "greenPriority": {
-            "type": "int",
+            "type": "string",
             "allowedValues": [
-                1,
-                2
+                "1",
+                "2"
             ]
         }
     },
