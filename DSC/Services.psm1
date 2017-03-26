@@ -13,12 +13,14 @@ Configuration Services
     {
         @include "/Base/Windows/Defender"
         @include "/Base/Windows/DotNet"
-        @include "/Base/Windows/IIS"
-
-        @include "/Base/ExternalCache"
-        @include "/Base/UrlRewrite2"
-        @include "/Base/ARRv3"
-        @include "/Base/IEEnchancedSecurity"
+        @include "/Base/Windows/IEEnchancedSecurity"
+        @include "/Base/Windows/InternationalSettings"
+        
+        @include "/Base/IIS/WindowsFeatures"
+        @include "/Base/IIS/ExternalCache"
+        @include "/Base/IIS/UrlRewrite2"
+        @include "/Base/IIS/ARRv3"
+        
         
         @include "/Software/7Zip"
         @include "/Software/AzCopy"

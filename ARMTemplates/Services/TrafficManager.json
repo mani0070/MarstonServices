@@ -18,8 +18,8 @@
         "bluePriority": {
             "type": "string",
             "allowedValues": [
-                "1",
-                "2"
+                "10",
+                "20"
             ]
         },
         "greenStatus": {
@@ -32,8 +32,8 @@
         "greenPriority": {
             "type": "string",
             "allowedValues": [
-                "1",
-                "2"
+                "10",
+                "20"
             ]
         }
     },
