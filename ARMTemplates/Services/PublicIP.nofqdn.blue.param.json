@@ -3,13 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "publicIpAddressName": {
-            "value": "ServicesPIPGreen"
+            "value": "ServicesPIPBlue"
         },
         "publicIpAddressDns": {
-            "value": "greennodesservicesmarstonme"
-        },
-        "publicIpType": {
-            "value": "NoReverseFqdn"
+            "value": "bluenodesservicesmarstonme"
         }
     }
 }

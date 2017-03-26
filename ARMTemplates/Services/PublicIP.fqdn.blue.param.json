@@ -7,9 +7,6 @@
         },
         "publicIpAddressDns": {
             "value": "blue.nodes.services.marston.me"
-        },
-        "publicIpType": {
-            "value": "WithReverseFqdn"
         }
     }
 }

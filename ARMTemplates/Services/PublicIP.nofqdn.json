@@ -7,23 +7,6 @@
         },
         "publicIpAddressDns": {
             "type": "string"
-        },
-        "publicIpType": {
-            "type": "string",
-            "allowedValues": [
-                "NoReverseFqdn",
-                "WithReverseFqdn"
-            ]
-        }
-    },
-    "variables": {
-        "dnsSettings": "[concat('dnsSettings', parameters('publicIpType'))]",
-        "dnsSettingsNoReverseFqdn":{
-            "domainNameLabel": "[parameters('publicIpAddressDns')]"
-        },
-        "dnsSettingsWithReverseFqdn":{
-            "domainNameLabel": "[replace(parameters('publicIpAddressDns'), '.', '')]",
-            "reverseFqdn": "[concat(parameters('publicIpAddressDns'), '.')]"
         }
     },
     "resources": [{
@@ -34,7 +17,9 @@
         "properties": {
             "publicIPAllocationMethod": "Static",
             "idleTimeoutInMinutes": 30,
-            "dnsSettings": "[variables('dnsSettings')]"
+            "dnsSettings": {
+                "domainNameLabel": "[parameters('publicIpAddressDns')]"
+            }
         }
     }],
     "outputs": {

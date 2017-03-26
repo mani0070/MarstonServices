@@ -6,10 +6,7 @@
             "value": "ServicesPIPGreen"
         },
         "publicIpAddressDns": {
-            "value": "green.nodes.services.marston.me"
-        },
-        "publicIpType": {
-            "value": "WithReverseFqdn"
+            "value": "greennodesservicesmarstonme"
         }
     }
 }
