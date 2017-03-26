@@ -8,5 +8,6 @@
     </metadata>
     <files>
         <file src="*.json" target="" />
+        <file src="DNSZones\*.json" target="DNSZones" />
     </files>
 </package>
