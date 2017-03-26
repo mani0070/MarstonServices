@@ -31,7 +31,8 @@
                     "expireTime": 86400,
                     "minimumTTL": 30,
                     "refreshTime": 3600,
-                    "retryTime": 300
+                    "retryTime": 300,
+                    "host": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[0]]"
                 }
             },
             "dependsOn": [
@@ -43,7 +44,7 @@
             "name": "[concat(parameters('zoneName'), '/blue')]",
             "apiVersion": "2016-04-01",
             "properties": {
-                "TTL": 3600,
+                "TTL": 30,
                 "ARecords": [{
                     "ipv4Address": "[parameters('blueIpAddress')]"
                 }]
@@ -57,7 +58,7 @@
             "name": "[concat(parameters('zoneName'), '/green')]",
             "apiVersion": "2016-04-01",
             "properties": {
-                "TTL": 3600,
+                "TTL": 30,
                 "ARecords": [{
                     "ipv4Address": "[parameters('greenIpAddress')]"
                 }]
