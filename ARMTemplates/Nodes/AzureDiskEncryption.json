@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clientID": {
+            "type": "securestring"
+        },
+        "clientSecret": {
+            "type": "securestring"
+        },
+        "vmName": {
+            "type": "string"
+        },
+        "keyVaultName": {
+            "type": "string"
+        }
+    },
+    "resources": [{
+        "type": "Microsoft.Compute/virtualMachines/extensions",
+        "name": "[concat(parameters('vmName'),'/AzureDiskEncryption')]",
+        "apiVersion": "2017-03-30",
+        "location": "[resourceGroup().location]",
+        "properties": {
+            "publisher": "Microsoft.Azure.Security",
+            "type": "AzureDiskEncryption",
+            "typeHandlerVersion": "1.1",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+                "AADClientID": "[parameters('clientId')]",
+                "KeyVaultURL": "[concat('https://', parameters('keyVaultName'), '.vault.azure.net/')]",
+                "KeyEncryptionAlgorithm": "RSA-OAEP",
+                "VolumeType": "All",
+                "EncryptionOperation": "EnableEncryption"
+            },
+            "protectedSettings": {
+                "AADClientSecret": "[parameters('clientSecret')]"
+            }
+        }
+    }],
+    "outputs": {
+        "keyVaultSecretUrl": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AzureDiskEncryption')).instanceView.statuses[0].message]"
+        }
+    }
+}

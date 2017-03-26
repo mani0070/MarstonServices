@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "type": "string"
+        },
+        "nicName": {
+            "type": "string"
+        },
+        "nsgName": {
+            "type": "string"
+        },
+        "servicesResourceGroupName": {
+            "type": "string"
+        },
+        "publicIpAddressName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "virtualNetworkId": "[resourceId(parameters('servicesResourceGroupName'),'Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
+        "subnetId": "[concat(variables('virtualNetworkId'),'/subnets/', 'Default')]"
+    },
+    "resources": [{
+            "apiVersion": "2016-12-01",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('nicName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "[concat(parameters('vmName'),'-IPConfig')]",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId(parameters('servicesResourceGroupName'), 'Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[variables('subnetId')]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[resourceId(parameters('servicesResourceGroupName'), 'Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
+                }
+            }
+        }
+    ]
+}

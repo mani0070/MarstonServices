@@ -13,7 +13,8 @@
             "type": "string"
         }
     },
-    "resources": [{
+    "resources": [
+        {
             "type": "Microsoft.Network/dnszones",
             "name": "[parameters('zoneName')]",
             "apiVersion": "2016-04-01",
@@ -25,9 +26,11 @@
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,
-                "ARecords": [{
-                    "ipv4Address": "[parameters('blueIpAddress')]"
-                }]
+                "ARecords": [
+                    {
+                        "ipv4Address": "[parameters('blueIpAddress')]"
+                    }
+                ]
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
@@ -39,9 +42,11 @@
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,
-                "ARecords": [{
-                    "ipv4Address": "[parameters('greenIpAddress')]"
-                }]
+                "ARecords": [
+                    {
+                        "ipv4Address": "[parameters('greenIpAddress')]"
+                    }
+                ]
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
@@ -51,19 +56,19 @@
     "outputs": {
         "nameserver1": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).properties.nameServers[0]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[0]]"
         },
         "nameserver2": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).properties.nameServers[1]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[1]]"
         },
         "nameserver3": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).properties.nameServers[2]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[2]]"
         },
         "nameserver4": {
             "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).properties.nameServers[3]]"
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[3]]"
         }
     }
 }
