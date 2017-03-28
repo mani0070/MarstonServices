@@ -8,3 +8,7 @@ storageconnectionstringw
 weblistenprefix
 webforcessl
 bindings
+
+Octopus.Server.exe path --artifacts \\Octoshared\OctopusData\Artifacts
+Octopus.Server.exe path --taskLogs \\Octoshared\OctopusData\TaskLogs
+Octopus.Server.exe path --nugetRepository \\Octoshared\OctopusData\Packages
