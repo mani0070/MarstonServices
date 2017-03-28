@@ -1,7 +1,9 @@
 Configuration Services
 {
     param(
-        $TeamCityVersion
+        $TeamCityVersion,
+        $AzureStorageAccountName,
+        $AzureStorageAccountKey
     )
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
