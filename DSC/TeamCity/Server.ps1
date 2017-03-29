@@ -2,7 +2,7 @@ Environment TeamCityDataDir
 {
     Ensure = "Present" 
     Name = "TEAMCITY_DATA_PATH"
-    Value = "${env:ALLUSERSPROFILE}\JetBrains\TeamCity"
+    Value = "\\${using:AzureStorageAccountName}.file.core.windows.net\teamcity"
 }
 File TeamCityServerInstall
 {
@@ -13,3 +13,30 @@ File TeamCityServerInstall
     MatchSource = $false
     DependsOn = '[Script]TeamCityExtract'
 }
+
+New-ServiceAccount TeamCity
+$teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
+
+Script TeamCityServerConfig
+{
+    SetScript = {
+        Get-Content -Path "${env:SystemDrive}\TeamCity\conf\server.xml" -Raw |
+            % Replace ' port="8111" ' ' port="80" '
+            Set-Content -Path "${env:SystemDrive}\TeamCity\conf\server.xml" -Encoding ASCII
+
+        & "${env:SystemDrive}\TeamCity\bin\teamcity-server.bat" service install /runAsSystem *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) { throw "teamcity-server.bat exit code $LASTEXITCODE" }
+    }
+    TestScript = { $null -ne (Get-Service TeamCity -ErrorAction Ignore) }
+    GetScript = { @{} }
+    PsDscRunAsCredential = $teamcityServiceCredential
+    DependsOn = '[File]TeamCityServerInstall'
+}
+Service TeamCity
+{
+    Name        = 'TeamCity'
+    Credential  = $teamcityServiceCredential
+    StartupType = 'Automatic'
+    State       = 'Running'
+    DependsOn = @('[User]TeamCityServiceAccount','[Script]TeamCityServerConfig')
+} 

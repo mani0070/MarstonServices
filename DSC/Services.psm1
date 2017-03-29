@@ -3,7 +3,9 @@ Configuration Services
     param(
         $TeamCityVersion,
         $AzureStorageAccountName,
-        $AzureStorageAccountKey
+        $AzureStorageAccountKey,
+        $OctopusConnectionString,
+        $OctopusMasterKey
     )
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -24,8 +26,6 @@ Configuration Services
         @include "/Base/IIS/ARRv3"
         
         @include "/Base/NewServiceAccount"
-        New-ServiceAccount OctopusDeploy
-        New-ServiceAccount TeamCity
         New-ServiceAccount ProGet
 
         @include "/Software/7Zip"
