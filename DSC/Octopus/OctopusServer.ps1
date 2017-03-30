@@ -18,12 +18,17 @@ Script "OctopusDeployAzureFileshareCmdkey"
     {
         SetScript = {
              Write-Verbose "Running set-script as: ${env:USERNAME}"
-            & cmdkey.exe /add:${using:AzureStorageAccountName}.file.core.windows.net /user:${using:AzureStorageAccountName} /pass:${using:AzureStorageAccountKey} *>&1 |  Write-Verbose
+             Write-Verbose "AzureStorageAccountName: $($using:AzureStorageAccountName)"
+             Write-Verbose "AzureStorageAccountKey: $($using:AzureStorageAccountKey)"
+            & cmdkey.exe /add:$($using:AzureStorageAccountName).file.core.windows.net /user:$($using:AzureStorageAccountName) /pass:$($using:AzureStorageAccountKey) *>&1 |  Write-Verbose
             if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from cmdkey.exe" }
         }
         TestScript = {
             Write-Verbose "Running test-script as: ${env:USERNAME}"
-            $foundEntry = & cmdkey.exe /list:Domain:target=${using:AzureStorageAccountName}.file.core.windows.net | ? { $_ -like "*User: ${using:AzureStorageAccountName}*" }
+
+             Write-Verbose "AzureStorageAccountName: $($using:AzureStorageAccountName)"
+             Write-Verbose "AzureStorageAccountKey: $($using:AzureStorageAccountKey)"
+            $foundEntry = & cmdkey.exe /list:Domain:target=$($using:AzureStorageAccountName).file.core.windows.net | ? { $_ -like "*User: $($using:AzureStorageAccountName)*" }
             return ($null -ne $foundEntry)
         }
         GetScript = { @{} }
@@ -55,7 +60,7 @@ xPackage OctopusDeployServer
     Ensure = 'Present'
     Name = 'Octopus Deploy Server'
     Path  = 'D:\OctopusDeployServer.msi'
-    ProductId = 'E4B740A5-B2E1-45EB-AB43-DA071BEFC579'
+    ProductId = '50F30DAB-9E7D-47D9-A1CE-11B53B5F2EAD'
     Arguments = "/quiet /l*v `"D:\OctopusDeployServer.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployServer"

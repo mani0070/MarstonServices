@@ -21,7 +21,7 @@ xPackage OctopusDeployTentacle
     Ensure = 'Present'
     Name = 'Octopus Deploy Tentacle'
     Path  = 'D:\OctopusDeployTentacle.msi'
-    ProductId = 'DF4D8B4C-A3CD-42EF-B33D-B611027C505D'
+    ProductId = '267B9530-1A47-4BF7-98BF-B37CC49B0C3D'
     Arguments = "/quiet /l*v `"D:\OctopusDeployTentacle.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployTentacle"

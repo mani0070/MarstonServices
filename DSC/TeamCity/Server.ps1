@@ -21,7 +21,7 @@ Script TeamCityServerConfig
 {
     SetScript = {
         Get-Content -Path "${env:SystemDrive}\TeamCity\conf\server.xml" -Raw |
-            % Replace ' port="8111" ' ' port="80" '
+            % Replace ' port="8111" ' ' port="80" ' |
             Set-Content -Path "${env:SystemDrive}\TeamCity\conf\server.xml" -Encoding ASCII
 
         & "${env:SystemDrive}\TeamCity\bin\teamcity-server.bat" service install /runAsSystem *>&1 | Write-Verbose
