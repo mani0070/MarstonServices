@@ -24,7 +24,7 @@ function New-ServiceAccount {
         GetScript = { @{} }
         DependsOn = "[User]${AutomationCredentialName}ServiceAccount"
     }
-    Script "Set${AutomationCredentialName}AzureFileshareCmdkey"
+    xScript "Set${AutomationCredentialName}AzureFileshareCmdkey"
     {
         SetScript = {
              Write-Verbose "Running set-script as: ${env:USERNAME}"
@@ -37,7 +37,7 @@ function New-ServiceAccount {
             return ($null -ne $foundEntry)
         }
         GetScript = { @{} }
-        PsDscRunAsCredential = $serviceCredentials
+        Credential = $serviceCredentials
         DependsOn = "[Script]Set${AutomationCredentialName}UserGroups"
     }
 }

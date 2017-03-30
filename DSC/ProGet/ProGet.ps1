@@ -17,3 +17,4 @@ Script ProGetExtract
     GetScript = { @{} }
     DependsOn = @('[xRemoteFile]ProGetArchive','[Package]SevenZip')
 }
+New-ServiceAccount ProGet

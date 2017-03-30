@@ -26,7 +26,6 @@ Configuration Services
         @include "/Base/IIS/ARRv3"
         
         @include "/Base/NewServiceAccount"
-  #      New-ServiceAccount ProGet
 
         @include "/Software/7Zip"
         @include "/Software/AzCopy"
