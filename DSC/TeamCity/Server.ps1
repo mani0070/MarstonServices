@@ -17,7 +17,7 @@ File TeamCityServerInstall
 $teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
 New-ServiceAccount $teamcityServiceCredential
 
-Script "TeamCityAzureFileshareCmdkey"
+xScript "TeamCityAzureFileshareCmdkey"
 {
     SetScript = {
         Write-Verbose "Running set-script as: ${env:USERNAME}"
@@ -53,5 +53,5 @@ Service TeamCity
     Credential  = $teamcityServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn = @('[User]TeamCityServiceAccount','[Script]TeamCityServerConfig','[Script]TeamCityAzureFileshareCmdkey')
+    DependsOn = @('[User]TeamCityServiceAccount','[Script]TeamCityServerConfig','[xScript]TeamCityAzureFileshareCmdkey')
 } 
