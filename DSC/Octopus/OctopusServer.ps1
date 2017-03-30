@@ -94,7 +94,7 @@ Service OctopusDeploy
     Credential  = $octopusDeployServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn = @('[User]OctopusServiceAccount','[Script]OctopusDeployConfiguration')
+    DependsOn = @('[User]OctopusDeployServiceAccount','[Script]OctopusDeployConfiguration')
 } 
 Script OctopusServerWatchdog
 {
