@@ -18,16 +18,11 @@ Script "OctopusDeployAzureFileshareCmdkey"
     {
         SetScript = {
              Write-Verbose "Running set-script as: ${env:USERNAME}"
-             Write-Verbose "AzureStorageAccountName: $($using:AzureStorageAccountName)"
-             Write-Verbose "AzureStorageAccountKey: $($using:AzureStorageAccountKey)"
             & cmdkey.exe /add:$($using:AzureStorageAccountName).file.core.windows.net /user:$($using:AzureStorageAccountName) /pass:$($using:AzureStorageAccountKey) *>&1 |  Write-Verbose
             if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from cmdkey.exe" }
         }
         TestScript = {
             Write-Verbose "Running test-script as: ${env:USERNAME}"
-
-             Write-Verbose "AzureStorageAccountName: $($using:AzureStorageAccountName)"
-             Write-Verbose "AzureStorageAccountKey: $($using:AzureStorageAccountKey)"
             $foundEntry = & cmdkey.exe /list:Domain:target=$($using:AzureStorageAccountName).file.core.windows.net | ? { $_ -like "*User: $($using:AzureStorageAccountName)*" }
             return ($null -ne $foundEntry)
         }
@@ -93,9 +88,9 @@ Script OctopusDeployConfiguration
                                             '--commsListenPort', '10943', `
                                             '--serverNodeName', $env:COMPUTERNAME, `
                                             '--masterKey', $using:OctopusMasterKey)
-        Invoke-OctopusServer path @('--artifacts', "\\${using:AzureStorageAccountName}.file.core.windows.net\octopusdeploy\Artifacts")
-        Invoke-OctopusServer path @('--taskLogs', "\\${using:AzureStorageAccountName}.file.core.windows.net\octopusdeploy\TaskLogs")
-        Invoke-OctopusServer path @('--nugetRepository', "\\${using:AzureStorageAccountName}.file.core.windows.net\octopusdeploy\Packages")
+        Invoke-OctopusServer path @('--artifacts', "\\$($using:AzureStorageAccountName).file.core.windows.net\octopusdeploy\Artifacts")
+        Invoke-OctopusServer path @('--taskLogs', "\\$($using:AzureStorageAccountName).file.core.windows.net\octopusdeploy\TaskLogs")
+        Invoke-OctopusServer path @('--nugetRepository', "\\$($using:AzureStorageAccountName).file.core.windows.net\octopusdeploy\Packages")
         Invoke-OctopusServer license @('--licenseBase64', [System.Convert]::ToBase64String(((New-Object System.Text.UTF8Encoding($false)).GetBytes((Invoke-WebRequest -UseBasicParsing -Uri "https://octopusdeploy.com/api/licenses/trial" -Method Post -Body @{
             FullName=$env:USERNAME
             Organization=$env:USERDOMAIN
