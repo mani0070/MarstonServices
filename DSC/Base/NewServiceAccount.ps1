@@ -1,30 +1,29 @@
 function New-ServiceAccount {
-    param($AutomationCredentialName)
+    param($Credential)
 
-    $serviceCredentials = Get-AutomationPSCredential -Name $AutomationCredentialName
-    $serviceCredentialsUsername = $serviceCredentials.UserName
-    User "${AutomationCredentialName}ServiceAccount"
+    $username = $Credential.UserName
+    User "${username}ServiceAccount"
     {
-        UserName                = $serviceCredentialsUsername
-        Password                = $serviceCredentials
+        UserName                = $username
+        Password                = $Credential
         PasswordChangeRequired  = $false
         PasswordNeverExpires    = $true
     }
-    Script "Set${AutomationCredentialName}UserGroups"
+    Script "Set${username}UserGroups"
     {
         SetScript = {
-            $user = Get-LocalUser -Name $using:serviceCredentialsUsername
+            $user = Get-LocalUser -Name $using:username
             try { Add-LocalGroupMember -Name Users -Member $user -ErrorAction Stop } catch [Microsoft.PowerShell.Commands.MemberExistsException] {}
             try { Add-LocalGroupMember -Name Administrators -Member $user -ErrorAction Stop } catch [Microsoft.PowerShell.Commands.MemberExistsException] {}
         }
         TestScript = {
-            $user = Get-LocalUser -Name $using:serviceCredentialsUsername
+            $user = Get-LocalUser -Name $using:username
             (($null -ne (Get-LocalGroupMember -Name Users -Member $user -ErrorAction Ignore)) -and ($null -ne (Get-LocalGroupMember -Name Administrators -Member $user -ErrorAction Ignore)))
         }
         GetScript = { @{} }
-        DependsOn = "[User]${AutomationCredentialName}ServiceAccount"
+        DependsOn = "[User]${username}ServiceAccount"
     }
-    xScript "Set${AutomationCredentialName}AzureFileshareCmdkey"
+    xScript "Set${username}AzureFileshareCmdkey"
     {
         SetScript = {
              Write-Verbose "Running set-script as: ${env:USERNAME}"
@@ -37,7 +36,7 @@ function New-ServiceAccount {
             return ($null -ne $foundEntry)
         }
         GetScript = { @{} }
-        Credential = $serviceCredentials
-        DependsOn = "[Script]Set${AutomationCredentialName}UserGroups"
+        Credential = $Credential
+        DependsOn = "[Script]Set${username}UserGroups"
     }
 }

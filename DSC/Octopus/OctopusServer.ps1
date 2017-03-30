@@ -11,7 +11,8 @@ xFirewall OctopusDeployServer
     Protocol              = "TCP"
 }
 
-New-ServiceAccount OctopusDeploy
+$octopusDeployServiceCredential = Get-AutomationPSCredential -Name OctopusDeploy
+New-ServiceAccount $octopusDeployServiceCredential
 
 # $OctopusUrlAcl = 'https://octopus.services.marston.me:443/'
 # $octopusDeployServiceCredentialUsername = $octopusDeployServiceCredential.UserName
@@ -44,7 +45,6 @@ xPackage OctopusDeployServer
     DependsOn = "[xRemoteFile]OctopusDeployServer"
 }
 
-$octopusDeployServiceCredential = Get-AutomationPSCredential -Name OctopusDeploy
 Script OctopusDeployConfiguration
 {
     SetScript = {

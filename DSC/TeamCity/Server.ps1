@@ -14,8 +14,8 @@ File TeamCityServerInstall
     DependsOn = '[Script]TeamCityExtract'
 }
 
-New-ServiceAccount TeamCity
 $teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
+New-ServiceAccount $teamcityServiceCredential
 
 Script TeamCityServerConfig
 {
