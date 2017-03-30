@@ -2,7 +2,7 @@ Environment TeamCityDataDir
 {
     Ensure = "Present" 
     Name = "TEAMCITY_DATA_PATH"
-    Value = "\\${using:AzureStorageAccountName}.file.core.windows.net\teamcity"
+    Value = "\\${AzureStorageAccountName}.file.core.windows.net\teamcity"
 }
 File TeamCityServerInstall
 {
