@@ -37,3 +37,9 @@ Script TeamCityAgentConfig
     GetScript = { @{} }
     DependsOn = '[File]TeamCityAgentInstall'
 }
+Service TCBuildAgent
+{
+    Name        = 'TCBuildAgent'
+    State       = 'Running'
+    DependsOn   = @('[Script]TeamCityAgentConfig','[Service]TeamCity')
+}

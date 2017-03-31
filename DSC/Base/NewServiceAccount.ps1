@@ -23,4 +23,21 @@ function New-ServiceAccount {
         GetScript = { @{} }
         DependsOn = "[User]${username}ServiceAccount"
     }
+    
+    Script "Set${username}AzureFileshareCmdkey"
+    {
+        SetScript = {
+            Write-Verbose "Running set-script as: $($using:username) ${env:USERNAME}"
+            & cmdkey.exe /add:$($using:AzureStorageAccountName).file.core.windows.net /user:$($using:AzureStorageAccountName) /pass:$($using:AzureStorageAccountKey) *>&1 |  Write-Verbose
+            if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from cmdkey.exe" }
+        }
+        TestScript = {
+            Write-Verbose "Running test-script as: $($using:username) ${env:USERNAME}"
+            $foundEntry = & cmdkey.exe /list:Domain:target=$($using:AzureStorageAccountName).file.core.windows.net | ? { $_ -like "*User: $($using:AzureStorageAccountName)*" }
+            return ($null -ne $foundEntry)
+        }
+        GetScript = { @{} }
+        PsDscRunAsCredential = $Credential
+        DependsOn = "[User]${username}ServiceAccount"
+    }
 }

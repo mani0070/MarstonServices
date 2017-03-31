@@ -2,7 +2,6 @@
 Set-WebConfigurationProperty -PSPath 'MACHINE/WEBROOT/APPHOST'  -Filter "system.webServer/proxy" -Name "enabled" -value "True"
 Set-WebConfigurationProperty -PSPath 'MACHINE/WEBROOT/APPHOST'  -Filter "system.webServer/proxy" -Name "reverseRewriteHostInResponseHeaders" -value "True"
 
-
 # Server Allowed Variables
 Set-WebConfigurationProperty -PSPath 'MACHINE/WEBROOT/APPHOST'  -Filter "system.webServer/rewrite/allowedServerVariables/add[@name='HTTP_X_FORWARDED_SCHEMA']" -Name "name" -Value "HTTP_X_FORWARDED_HOST"
 Set-WebConfigurationProperty -PSPath 'MACHINE/WEBROOT/APPHOST'  -Filter "system.webServer/rewrite/allowedServerVariables/add[@name='HTTP_X_FORWARDED_SCHEMA']" -Name "name" -Value "HTTP_X_FORWARDED_PROTO"

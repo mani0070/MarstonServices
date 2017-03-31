@@ -26,7 +26,43 @@ xPackage OctopusDeployTentacle
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployTentacle"
 }
-Script OctopusTentacleWatchdog
+Script OctopusDeployTentacleConfiguration
+{
+    SetScript = {
+        function Invoke-OctopusTentacle {
+            param(
+                [Parameter(Position=0, Mandatory)][ValidateSet('create-instance','new-certificate','configure','register-with','service','watchdog')]$Command,
+                [Parameter(Position=1, Mandatory)]$Arguments
+            )
+            $tentacle = Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe' -Resolve
+
+            & $tentacle $Command --console --instance Tentacle @Arguments *>&1 | Write-Verbose
+            if ($LASTEXITCODE -ne 0) {
+                throw "Tentacle $Command exit code $LASTEXITCODE"
+            }
+        }
+
+        Invoke-OctopusTentacle create-instance @('--config', "$($env:SystemDrive)\Octopus\Tentacle.config")
+        Invoke-OctopusTentacle new-certificate @('--if-blank')
+        Invoke-OctopusTentacle configure @( '--home', 'C:\Octopus', 
+                                            '--app', 'C:\Octopus\Applications',
+                                            '--port', '10933',
+                                            '--noListen', 'False')
+        Invoke-OctopusTentacle configure @( '--reset-trust')
+        Invoke-OctopusTentacle configure @( '--trust', '4793C33E7629917F9289FA64EE4F1FFFD63E751E')
+        Invoke-OctopusTentacle service @('--install', '--reconfigure', '--stop')
+    }
+    TestScript = { $null -ne (Get-Service 'OctopusDeploy Tentacle' -ErrorAction Ignore) }
+    GetScript = { @{} }
+    DependsOn = @('[xPackage]OctopusDeployTentacle')
+}
+Service OctopusDeployTentacle
+{
+    Name        = 'OctopusDeploy Tentacle'
+    State       = 'Running'
+    DependsOn   = @('[Script]OctopusDeployTentacleConfiguration','[Service]OctopusDeploy')
+}
+Script OctopusDeployTentacleWatchdog
 {
     SetScript = {
         & (Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe') watchdog --create --instances * --interval=5 *>&1 | Write-Verbose
@@ -34,72 +70,5 @@ Script OctopusTentacleWatchdog
     }
     TestScript = { $null -ne (Get-ScheduledTask -TaskName 'Octopus Watchdog Tentacle' -ErrorAction Ignore) }
     GetScript = { @{} }
-    DependsOn = "[xPackage]OctopusDeployTentacle"
+    DependsOn = "[Service]OctopusDeployTentacle"
 }
-# $octopusConfigStateFile = Join-Path $octopusDeployRoot 'config.statefile'
-# $octopusConfigLogFile = Join-Path $octopusDeployRoot "OctopusTentacle.config.log"
-# Script OctopusDeployConfiguration
-# {
-#     SetScript = {
-#         $octopusTentacleExe = Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe'
-
-#         & $octopusTentacleExe create-instance --console --instance "Tentacle" --config "C:\Octopus\Tentacle.config" *>&1 | Tee-Object -Append -FilePath $using:octopusConfigLogFile
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Tentacle: create-instance" }
-#         & $octopusTentacleExe new-certificate --console --instance "Tentacle" *>&1 | Tee-Object -Append -FilePath $using:octopusConfigLogFile
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Tentacle: new-certificate" }
-#         & $octopusTentacleExe configure --console --instance "Tentacle" --reset-trust *>&1 | Tee-Object -Append -FilePath $using:octopusConfigLogFile
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Tentacle: reset-trust" }
-#         & $octopusTentacleExe configure --console --instance "Tentacle" --home "C:\Octopus" --app "C:\Octopus\Applications" --port "10933" --noListen "False" *>&1 | Tee-Object -Append -FilePath $using:octopusConfigLogFile
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Tentacle: configure" }
-#         & $octopusTentacleExe register-with --console --instance "Tentacle" --server $using:TentacleRegistrationUri --apikey="$($using:TentacleRegistrationApiKey)"  --role="$($using:Node.Octopus.Role)" --environment="$($using:Node.Octopus.Environment)" --name="$($using:Node.Octopus.Name)" --comms-style TentaclePassive --Force *>&1 | Tee-Object -Append -FilePath $using:octopusConfigLogFile
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Tentacle: register-with" }
-#         & $octopusTentacleExe service --console --instance "Tentacle" --install --start *>&1 | Tee-Object -Append -FilePath $using:octopusConfigLogFile
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Tentacle: service" }
-        
-#         [System.IO.FIle]::WriteAllText($using:octopusConfigStateFile, $LASTEXITCODE,[System.Text.Encoding]::ASCII)
-#     }
-#     TestScript = {
-#         ((Test-Path $using:octopusConfigStateFile) -and ([System.IO.FIle]::ReadAllText($using:octopusConfigStateFile).Trim()) -eq '0')
-#     }
-#     GetScript = { @{} }
-#     DependsOn = @('[xFirewall]OctopusDeployTentacle','[Script]OctopusTentacleInstall')
-# }
-
-# $watchdogExe = Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe'
-# #include <Octopus\OctopusWatchdog>
-
-# #include <Octopus\ServiceAccount>
-
-# Service Tentacle
-# {
-#     Name        =  'OctopusDeploy Tentacle'
-#     Credential  = $octopusServiceAccount
-#     StartupType = 'Automatic'
-#     DependsOn = @('[User]OctopusServiceAccount','[Script]OctopusDeployConfiguration')
-# }
-
-# xFileSystemAccessRule OctopusConfigFile {
-#     Path = "$($env:SystemDrive)\Octopus\"
-#     Identity = $octopusServiceAccountUsername
-#     Rights = @("FullControl")
-#     DependsOn = @('[User]OctopusServiceAccount','[Script]OctopusDeployConfiguration')
-# }
-
-# $octopusServiceStartedStateFile = Join-Path $octopusDeployRoot 'service.statefile'
-# Script OctopusTentacleServiceStart
-# {
-#     SetScript = {
-#         Stop-Service 'OctopusDeploy Tentacle' -Force -Verbose | Write-Verbose
-#         if ((Get-Service 'OctopusDeploy Tentacle' | % Status) -eq "Running") {
-#             Stop-Process -Name Tentacle -Force -Verbose | Write-Verbose
-#         }
-#         Start-Service 'OctopusDeploy Tentacle' -Verbose | Write-Verbose
-
-#         [System.IO.FIle]::WriteAllText($using:octopusServiceStartedStateFile, (Get-Service 'OctopusDeploy Tentacle' | % Status),[System.Text.Encoding]::ASCII)
-#     }
-#     TestScript = {
-#         ((Test-Path $using:octopusServiceStartedStateFile) -and ([System.IO.FIle]::ReadAllText($using:octopusServiceStartedStateFile).Trim()) -eq 'Running')
-#     }
-#     GetScript = { @{} }
-#     DependsOn = @('[xFirewall]OctopusDeployTentacle','[Service]Tentacle','[Script]OctopusDeployConfiguration','[User]OctopusServiceAccount','[Script]SetOctopusUserGroups','[xFileSystemAccessRule]OctopusConfigFile')
-# }

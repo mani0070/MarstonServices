@@ -14,22 +14,6 @@ xFirewall OctopusDeployServer
 $octopusDeployServiceCredential = Get-AutomationPSCredential -Name OctopusDeploy
 New-ServiceAccount $octopusDeployServiceCredential
 
-Script "OctopusDeployAzureFileshareCmdkey"
-{
-    SetScript = {
-        Write-Verbose "Running set-script as: ${env:USERNAME}"
-        & cmdkey.exe /add:$($using:AzureStorageAccountName).file.core.windows.net /user:$($using:AzureStorageAccountName) /pass:$($using:AzureStorageAccountKey) *>&1 |  Write-Verbose
-        if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from cmdkey.exe" }
-    }
-    TestScript = {
-        Write-Verbose "Running test-script as: ${env:USERNAME}"
-        $foundEntry = & cmdkey.exe /list:Domain:target=$($using:AzureStorageAccountName).file.core.windows.net | ? { $_ -like "*User: $($using:AzureStorageAccountName)*" }
-        return ($null -ne $foundEntry)
-    }
-    GetScript = { @{} }
-    PsDscRunAsCredential = $octopusDeployServiceCredential
-    DependsOn = "[User]OctopusDeployServiceAccount"
-}
 # $OctopusUrlAcl = 'https://octopus.services.marston.me:443/'
 # $octopusDeployServiceCredentialUsername = $octopusDeployServiceCredential.UserName
 # Script OctopusDeployUrlAcl
@@ -83,7 +67,7 @@ Script OctopusDeployConfiguration
                                             '--upgradeCheck', 'True', `
                                             '--upgradeCheckWithStatistics', 'True', `
                                             '--webAuthenticationMode', 'UsernamePassword', `
-                                            '--webForceSSL', 'True', `
+                                            '--webForceSSL', 'False', `
                                             '--webListenPrefixes', 'https://octopus.services.marston.me,http://localhost:1942', `
                                             '--commsListenPort', '10943', `
                                             '--serverNodeName', $env:COMPUTERNAME, `
@@ -97,7 +81,7 @@ Script OctopusDeployConfiguration
             EmailAddress="${env:USERNAME}@${env:USERDOMAIN}.onmicrosoft.com"
             Source="azure"
         }).Content))))
-        Invoke-OctopusServer service @( '--install', '--reconfigure', '--stop')
+        Invoke-OctopusServer service @('--install', '--reconfigure', '--stop')
     }
     TestScript = { $null -ne (Get-Service OctopusDeploy -ErrorAction Ignore) }
     GetScript = { @{} }
@@ -110,7 +94,7 @@ Service OctopusDeploy
     Credential  = $octopusDeployServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn = @('[User]OctopusDeployServiceAccount','[Script]OctopusDeployConfiguration','[Script]OctopusDeployAzureFileshareCmdkey')
+    DependsOn = @('[Script]SetOctopusDeployUserGroups"','[Script]OctopusDeployConfiguration','[Script]OctopusDeployAzureFileshareCmdkey')
 } 
 Script OctopusServerWatchdog
 {
@@ -120,5 +104,5 @@ Script OctopusServerWatchdog
     }
     TestScript = { $null -ne (Get-ScheduledTask -TaskName 'Octopus Watchdog OctopusServer' -ErrorAction Ignore) }
     GetScript = { @{} }
-    DependsOn = @('[Script]OctopusDeployConfiguration','[Service]OctopusDeploy')
+    DependsOn = '[Service]OctopusDeploy'
 }
