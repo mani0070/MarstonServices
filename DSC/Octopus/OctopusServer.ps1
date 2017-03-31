@@ -94,7 +94,7 @@ Service OctopusDeploy
     Credential  = $octopusDeployServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn = @('[Script]SetOctopusDeployUserGroups','[Script]OctopusDeployConfiguration','[Script]OctopusDeployAzureFileshareCmdkey')
+    DependsOn = @('[Script]SetOctopusDeployUserGroups','[Script]OctopusDeployConfiguration','[Script]SetOctopusDeployAzureFileshareCmdkey')
 } 
 Script OctopusServerWatchdog
 {
