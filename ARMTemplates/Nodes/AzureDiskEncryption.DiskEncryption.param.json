@@ -6,7 +6,7 @@
             "value": "ServicesWeb"
         },
         "keyVaultSecretUrl": {
-            "value": "#{Octopus.Action[AzureDiskEncryption].Output.AzureRMOutputs[keyVaultSecretUrl]}"
+            "value": "#{Octopus.Action[Azure Disk Encryption].Output.AzureRMOutputs[keyVaultSecretUrl]}"
         },
         "keyVaultResourceId": {
             "value": "#{KeyVaultResourceId}"
