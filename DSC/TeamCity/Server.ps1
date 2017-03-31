@@ -27,5 +27,5 @@ Service TeamCity
     Path        = "`"C:\TeamCity\bin\TeamCityService.exe`" jetservice `"/settings=C:\TeamCity\conf\teamcity-server-service.xml`" `"/LogFile=C:\TeamCity\logs\teamcity-winservice.log`""
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn   = @('[File]TeamCityServerInstall','[Script]SetTeamCityUserGroups','[Script]TeamCityAzureFileshareCmdkey')
+    DependsOn   = @('[File]TeamCityServerInstall','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey')
 }
