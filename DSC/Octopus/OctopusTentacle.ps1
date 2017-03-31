@@ -50,6 +50,16 @@ Script OctopusDeployTentacleConfiguration
                                             '--noListen', 'False')
         Invoke-OctopusTentacle configure @( '--reset-trust')
         Invoke-OctopusTentacle configure @( '--trust', '4793C33E7629917F9289FA64EE4F1FFFD63E751E')
+        Invoke-OctopusTentacle register-with @( '--server', "http://localhost:1986/",
+                                                '--apikey', "API-CPC5WKFFPGXSNOKDYRSDND1BDWE",
+                                                '--name', "Services Web",
+                                                '--environment', "Microsoft Azure",
+                                                '--role', "Service Server",
+                                                '--role', "Azure Automation",
+                                                '--tenanttag', "Deployment Style/Environment Deployment",
+                                                '--tenanttag', "Deployment Style/Tenant Deployment", 
+                                                '--comms-style', "TentaclePassive",
+                                                '--force')
         Invoke-OctopusTentacle service @('--install', '--reconfigure', '--stop')
     }
     TestScript = { $null -ne (Get-Service 'OctopusDeploy Tentacle' -ErrorAction Ignore) }
