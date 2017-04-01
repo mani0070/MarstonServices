@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "resources": [{
         "type": "Microsoft.Network/networkSecurityGroups",
-        "name": "ServicesNSG",
+        "name": "NetworkSecurityGroup",
         "location": "[resourceGroup().location]",
         "apiVersion": "2016-03-30",
         "properties": {
@@ -52,7 +52,7 @@
                         "protocol": "Tcp",
                         "sourcePortRange": "*",
                         "destinationPortRange": "10943",
-                        "sourceAddressPrefix": "*",
+                        "sourceAddressPrefix": "212.124.236.1/32",
                         "destinationAddressPrefix": "*",
                         "access": "Allow",
                         "priority": 320,

@@ -21,8 +21,17 @@
                 "secretName": "VMAdminPassword"
             }
         },
+        "customData": {
+            "value": "#{NodeCustomData}"
+        },
+        "keyVaultResourceId": {
+           "value": "#{KeyVaultResourceId}"
+        },
+        "servicesMarstonMeCertificateUrl": {
+            "value": "#{ServicesMarstonMeCertificateUrl}"
+        },
         "vmName": {
-            "value": "ServicesWeb"
+            "value": "#{NodeVMName}"
         }
     }
 }

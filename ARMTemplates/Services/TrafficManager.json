@@ -47,7 +47,6 @@
             "trafficRoutingMethod": "Priority",
             "dnsConfig": {
                 "relativeName": "[parameters('trafficManagerRelativeName')]",
-                "fqdn": "[concat(parameters('trafficManagerRelativeName'),'.trafficmanager.net')]",
                 "ttl": 30
             },
             "monitorConfig": {
@@ -57,23 +56,21 @@
             },
             "endpoints": [{
                     "name": "Blue",
-                    "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                    "type": "Microsoft.Network/trafficManagerProfiles/externalEndpoints",
                     "properties": {
-                        "endpointStatus": "[parameters('blueStatus')]",
-                        "targetResourceId": "[resourceId('Microsoft.Network/publicIPAddresses', 'ServicesPIPBlue')]",
                         "target": "blue.nodes.services.marston.me",
-                        "priority": "[parameters('bluePriority')]",
-                        "endpointLocation": "[resourceGroup().location]"
+                        "endpointLocation": "[reference('Microsoft.Network/publicIPAddresses', 'ServicesPIPBlue').location]",
+                        "endpointStatus": "[parameters('blueStatus')]",
+                        "priority": "[parameters('bluePriority')]"
                     }
                 },{
                     "name": "Green",
-                    "type": "Microsoft.Network/trafficManagerProfiles/azureEndpoints",
+                    "type": "Microsoft.Network/trafficManagerProfiles/externalEndpoints",
                     "properties": {
-                        "endpointStatus": "[parameters('greenStatus')]",
-                        "targetResourceId": "[resourceId('Microsoft.Network/publicIPAddresses', 'ServicesPIPGreen')]",
                         "target": "green.nodes.services.marston.me",
-                        "priority": "[parameters('greenPriority')]",
-                        "endpointLocation": "[resourceGroup().location]"
+                        "endpointLocation": "[reference('Microsoft.Network/publicIPAddresses', 'ServicesPIPBlue').location]",
+                        "endpointStatus": "[parameters('greenStatus')]",
+                        "priority": "[parameters('greenPriority')]"
                     }
                 }]
         }

@@ -12,10 +12,16 @@
         "vmAdminPassword": {
             "type": "securestring"
         },
-        "vmName": {
+        "customData": {
             "type": "string"
         },
-        "nicName": {
+        "keyVaultResourceId": {
+            "type": "string"
+        },
+        "servicesMarstonMeCertificateUrl": {
+            "type": "string"
+        },
+        "vmName": {
             "type": "string"
         }
     },
@@ -32,10 +38,20 @@
                 "computerName": "[parameters('vmName')]",
                 "adminUsername": "[parameters('vmAdminUsername')]",
                 "adminPassword": "[parameters('vmAdminPassword')]",
+                "customData": "[base64(parameters('customData'))]",
                 "windowsConfiguration": {
                     "enableAutomaticUpdates": true,
                     "provisionVMAgent": true
-                }
+                },
+                "secrets": [{
+                    "sourceVault": {
+                        "id": "[parameters('keyVaultResourceId')]"
+                    },
+                    "vaultCertificates": [{
+                        "certificateUrl": "[parameters('servicesMarstonMeCertificateUrl')]",
+                        "certificateStore": "My"
+                    }]
+                }]
             },
             "storageProfile": {
                 "imageReference": {
@@ -55,7 +71,7 @@
             },
             "networkProfile": {
                 "networkInterfaces": [{
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nicName'))]"
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces', 'NetworkInterface'))]"
                 }]
             }
         }

@@ -7,26 +7,12 @@ xFirewall OctopusDeployServer
     Action                = "Allow"
     Profile               = "Any"
     Direction             = "InBound"
-    LocalPort             = ("80", "10943")
+    LocalPort             = "10943"
     Protocol              = "TCP"
 }
 
 $octopusDeployServiceCredential = Get-AutomationPSCredential -Name OctopusDeploy
 New-ServiceAccount $octopusDeployServiceCredential
-
-# $OctopusUrlAcl = 'https://octopus.services.marston.me:443/'
-# $octopusDeployServiceCredentialUsername = $octopusDeployServiceCredential.UserName
-# Script OctopusDeployUrlAcl
-# {
-#     SetScript = {
-#         $username = '{0}\{1}' -f [System.Environment]::MachineName, $using:octopusDeployServiceCredentialUsername
-#         & $netsh http add urlacl url='https://octopus.services.marston.me:443/' user=$username *>&1 |  Write-Verbose
-#         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from netsh add urlacl" }
-#     }
-#     TestScript = { $null -ne (& netsh.exe http show urlacl 'https://octopus.services.marston.me:443/' | ? { $_ -like "*Reserved URL* ${using:OctopusUrlAcl}*" }) }
-#     GetScript = { @{} }
-#     DependsOn = '[User]OctopusServiceAccount'
-# }
 
 xRemoteFile OctopusDeployServer
 {
@@ -60,6 +46,10 @@ Script OctopusDeployConfiguration
                 throw "Octopus Server $Command exit code $LASTEXITCODE"
             }
         }
+        & netsh.exe --% http add sslcert ipport=0.0.0.0:443 appid={E2096A4C-2391-4BE1-9F17-E353F930E7F1} certhash=1051675930C82BFFA18281E8D8EA70EB993267D0 certstorename=My *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) {
+            throw "netsh.exe exit code $LASTEXITCODE"
+        }
 
         Invoke-OctopusServer create-instance @('--config', "$($env:SystemDrive)\Octopus\OctopusServer.config")
         Invoke-OctopusServer configure @(   '--home', 'C:\Octopus', 
@@ -86,7 +76,7 @@ Script OctopusDeployConfiguration
     TestScript = { $null -ne (Get-Service OctopusDeploy -ErrorAction Ignore) }
     GetScript = { @{} }
     PsDscRunAsCredential = $octopusDeployServiceCredential
-    DependsOn = @('[xPackage]OctopusDeployServer')#,'[Script]OctopusDeployUrlAcl')
+    DependsOn = '[xPackage]OctopusDeployServer'
 }
 Service OctopusDeploy
 {

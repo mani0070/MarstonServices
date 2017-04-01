@@ -29,6 +29,8 @@ xPackage OctopusDeployTentacle
 Script OctopusDeployTentacleConfiguration
 {
     SetScript = {
+        $customdata = Get-Content -Path (Join-Path $env:SystemDrive '\AzureData\CustomData.bin') | ConvertFrom-Json
+
         function Invoke-OctopusTentacle {
             param(
                 [Parameter(Position=0, Mandatory)][ValidateSet('create-instance','new-certificate','configure','register-with','service','watchdog')]$Command,
@@ -50,17 +52,14 @@ Script OctopusDeployTentacleConfiguration
                                             '--noListen', 'False')
         Invoke-OctopusTentacle configure @( '--reset-trust')
         Invoke-OctopusTentacle configure @( '--trust', '4793C33E7629917F9289FA64EE4F1FFFD63E751E')
-        Invoke-OctopusTentacle register-with @( '--server', "http://localhost:1986/",
+        Invoke-OctopusTentacle register-with (@( '--server', "http://localhost:1986/",
                                                 '--apikey', "API-CPC5WKFFPGXSNOKDYRSDND1BDWE",
                                                 '--name', "Services Web ($($customdata.BlueGreen))",
-                                                '--environment', "Microsoft Azure",
-                                                '--role', "Service Server",
-                                                '--role', "Azure Automation",
+                                                '--environment', $customdata.Environment,
                                                 '--tenanttag', "Deployment Style/Environment Deployment",
                                                 '--tenanttag', "Deployment Style/Tenant Deployment", 
-                                                '--tenanttag', "Blue Green Deployment/$($customdata.BlueGreen)", 
                                                 '--comms-style', "TentaclePassive",
-                                                '--force')
+                                                '--force') + ($customdata.Roles | % { '--role', $_ }))
         Invoke-OctopusTentacle service @('--install', '--reconfigure', '--stop')
     }
     TestScript = { $null -ne (Get-Service 'OctopusDeploy Tentacle' -ErrorAction Ignore) }
