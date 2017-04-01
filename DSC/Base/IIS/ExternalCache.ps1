@@ -11,5 +11,5 @@ Script ExternalCache
     }
     TestScript = { (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\IIS Extensions\External Disk Cache\' -Name Install -ErrorAction Ignore | % Install) -eq 1 }
     GetScript = { @{} }
-    DependsOn = @('[xRemoteFile]ExternalCache','[WindowsFeature]WebCommonHttp')
+    DependsOn = @('[xRemoteFile]ExternalCache','[WindowsFeature]WebWebServer','[WindowsFeature]WebStaticContent')
 }
