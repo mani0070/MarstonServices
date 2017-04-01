@@ -3,11 +3,28 @@ WindowsFeature WebWebServer
     Ensure = 'Present'
     Name = 'Web-WebServer'
 }
-WindowsFeature WebCommonHttp
+WindowsFeature WebDefaultDoc
 {
     Ensure = 'Present'
-    Name = 'Web-Common-Http'
-    IncludeAllSubFeature = $true
+    Name = 'Web-Default-Doc'
+    DependsOn = '[WindowsFeature]WebWebServer'
+}
+WindowsFeature WebHttpErrors
+{
+    Ensure = 'Present'
+    Name = 'Web-Http-Errors'
+    DependsOn = '[WindowsFeature]WebWebServer'
+}
+WindowsFeature WebStaticContent
+{
+    Ensure = 'Present'
+    Name = 'Web-Static-Content'
+    DependsOn = '[WindowsFeature]WebWebServer'
+}
+WindowsFeature WebHttpRedirect
+{
+    Ensure = 'Present'
+    Name = 'Web-Http-Redirect'
     DependsOn = '[WindowsFeature]WebWebServer'
 }
 WindowsFeature  WebPerformance
