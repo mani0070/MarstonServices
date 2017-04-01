@@ -34,6 +34,18 @@ WindowsFeature  WebPerformance
     IncludeAllSubFeature = $true
     DependsOn = '[WindowsFeature]WebWebServer'
 }
+WindowsFeature WebBasicAuth
+{
+    Ensure = 'Present'
+    Name = 'Web-Basic-Auth'
+    DependsOn = '[WindowsFeature]WebWebServer'
+}
+WindowsFeature WebWindowsAuth
+{
+    Ensure = 'Present'
+    Name = ' Web-Windows-Auth'
+    DependsOn = '[WindowsFeature]WebWebServer'
+}
 WindowsFeature WebNetExt
 {
     Ensure = 'Present'
