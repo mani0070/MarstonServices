@@ -16,16 +16,21 @@ File TeamCityServerInstall
 
 $teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
 New-ServiceAccount $teamcityServiceCredential
-
+Script TeamCityServerConfig
+{
+    SetScript = {
+        & "${env:SystemDrive}\TeamCity\bin\teamcity-server.bat" service install /runAsSystem *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) { throw "teamcity-server.bat exit code $LASTEXITCODE" }
+    }
+    TestScript = { $null -ne (Get-Service TeamCity -ErrorAction Ignore) }
+    GetScript = { @{} }
+    DependsOn = '[File]TeamCityServerInstall'
+}
 Service TeamCity
 {
     Name        = 'TeamCity'
     Credential  = $teamcityServiceCredential
-    Description = 'JetBrains TeamCity server service'
-    DisplayName = 'TeamCity Server'
-    Ensure      = 'Present'
-    Path        = "`"C:\TeamCity\bin\TeamCityService.exe`" jetservice `"/settings=C:\TeamCity\conf\teamcity-server-service.xml`" `"/LogFile=C:\TeamCity\logs\teamcity-winservice.log`""
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn   = @('[File]TeamCityServerInstall','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey')
+    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey')
 }

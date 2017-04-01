@@ -11,7 +11,9 @@ Script ProGetExtract
         & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\ProGet-Service.zip" -o"C:\ProGet\Service"
         & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\ProGet-WebApp.zip" -o"C:\ProGet\WebApp"
         & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\ProGet-DbChangeScripter.zip" -o"C:\ProGet\DbChangeScripter"
-        Move-Item -Path 'D:\Extensions\*' -Destination 'C:\ProgramData\ProGet\Extensions\ExtensionsPath' -Force 
+        $extensionsPath = 'C:\ProgramData\ProGet\Extensions\ExtensionsPath'
+        if (!(Test-Path $extensionsPath)) { New-Item -Path $extensionsPath -ItemType Directory }
+        Move-Item -Path 'D:\Extensions\*' -Destination $extensionsPath -Force 
     }
     TestScript = { (Test-Path "C:\ProGet\Service") -and (Test-Path "C:\ProGet\WebApp") }
     GetScript = { @{} }
