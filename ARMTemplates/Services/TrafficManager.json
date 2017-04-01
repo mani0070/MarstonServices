@@ -59,7 +59,7 @@
                     "type": "Microsoft.Network/trafficManagerProfiles/externalEndpoints",
                     "properties": {
                         "target": "blue.nodes.services.marston.me",
-                        "endpointLocation": "[reference('Microsoft.Network/publicIPAddresses', 'ServicesPIPBlue').location]",
+                        "endpointLocation": "[resourceGroup().location]",
                         "endpointStatus": "[parameters('blueStatus')]",
                         "priority": "[parameters('bluePriority')]"
                     }
@@ -68,7 +68,7 @@
                     "type": "Microsoft.Network/trafficManagerProfiles/externalEndpoints",
                     "properties": {
                         "target": "green.nodes.services.marston.me",
-                        "endpointLocation": "[reference('Microsoft.Network/publicIPAddresses', 'ServicesPIPBlue').location]",
+                        "endpointLocation": "[resourceGroup().location]",
                         "endpointStatus": "[parameters('greenStatus')]",
                         "priority": "[parameters('greenPriority')]"
                     }
