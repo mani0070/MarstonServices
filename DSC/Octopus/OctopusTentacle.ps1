@@ -75,7 +75,7 @@ Service OctopusDeployTentacle
 Script OctopusDeployTentacleWatchdog
 {
     SetScript = {
-        & (Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe') watchdog --create --instances * --interval=5 *>&1 | Write-Verbose
+        & (Join-Path $env:ProgramFiles 'Octopus Deploy\Tentacle\Tentacle.exe') watchdog --console --create --instances * --interval=5 *>&1 | Write-Verbose
         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Watchdog" }
     }
     TestScript = { $null -ne (Get-ScheduledTask -TaskName 'Octopus Watchdog Tentacle' -ErrorAction Ignore) }

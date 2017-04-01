@@ -99,7 +99,7 @@ Service OctopusDeploy
 Script OctopusServerWatchdog
 {
     SetScript = {
-        & (Join-Path $env:ProgramFiles 'Octopus Deploy\Octopus\Octopus.Server.exe') watchdog --create --instances * --interval=5 *>&1 | Write-Verbose
+        & (Join-Path $env:ProgramFiles 'Octopus Deploy\Octopus\Octopus.Server.exe') watchdog --console --create --instances * --interval=5 *>&1 | Write-Verbose
         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from Octopus Watchdog" }
     }
     TestScript = { $null -ne (Get-ScheduledTask -TaskName 'Octopus Watchdog OctopusServer' -ErrorAction Ignore) }
