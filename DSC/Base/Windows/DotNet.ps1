@@ -14,5 +14,9 @@ WindowsFeature NETFramework45ASPNET
     Ensure = 'Present'
     Name = 'NET-Framework-45-ASPNET'
 }
-
-   
+WindowsFeature WAS
+{
+    Ensure = 'Present'
+    Name = 'WAS'
+    IncludeAllSubFeature = $true 
+}

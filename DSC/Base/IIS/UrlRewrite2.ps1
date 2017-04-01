@@ -7,8 +7,8 @@ xRemoteFile UrlRewrite2
 Script UrlRewrite2
 {
     SetScript = {
-        & "${env:SystemRoot}\System32\net.exe" stop was /y
-        & "${env:SystemRoot}\System32\net.exe" stop wmsvc
+        Stop-Service was -Verbose
+        Stop-Service wmsvc -Verbose
         & "${env:SystemRoot}\System32\cmd.exe" /C reg.exe save "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" "${env:TEMP}\__rewrite_netfx35_sp_level.txt" /y
         & "${env:SystemRoot}\System32\cmd.exe" /C reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" /v SP /t REG_DWORD /d 0 /f
 
@@ -16,10 +16,10 @@ Script UrlRewrite2
 
         & "${env:SystemRoot}\System32\cmd.exe" /C reg.exe restore "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" "${env:TEMP}\__rewrite_netfx35_sp_level.txt"
         Remove-Item -Path "${env:TEMP}\__rewrite_netfx35_sp_level.txt" -Force
-        & "${env:SystemRoot}\System32\net.exe" start w3svc
-        & "${env:SystemRoot}\System32\net.exe" start wmsvc
+        Start-Service w3svc -Verbose
+        Start-Service wmsvc -Verbose
     }
     TestScript = { (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\IIS Extensions\URL Rewrite\' -Name Install -ErrorAction Ignore | % Install) -eq 1 }
     GetScript = { @{} }
-    DependsOn = @('[xRemoteFile]UrlRewrite2','[WindowsFeature]WebWebServer','[WindowsFeature]WebMgmtTools')
+    DependsOn = @('[xRemoteFile]UrlRewrite2','[WindowsFeature]WAS','[WindowsFeature]WebWebServer','[WindowsFeature]WebMgmtTools')
 }
