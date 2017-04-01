@@ -6,4 +6,7 @@
     <description>An empty package with nothing in it</description>
     <authors>Paul Marston</authors>
     </metadata>
+    <files>
+      <file src="_._" target="" />
+    </files>
 </package>
