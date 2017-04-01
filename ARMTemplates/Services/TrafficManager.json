@@ -51,9 +51,9 @@
                 "ttl": 30
             },
             "monitorConfig": {
-                "protocol": "HTTPS",
-                "port": 443,
-                "path": "/"
+                "protocol": "HTTP",
+                "port": 80,
+                "path": "/healthcheck"
             },
             "endpoints": [{
                     "name": "Blue",
