@@ -7,6 +7,6 @@
     <authors>Paul Marston</authors>
     </metadata>
     <files>
-        <file src="Empty.Package.nuspec" target="" />
+        <file src="Empty.Package.nuspec" target="." />
     </files>
 </package>
