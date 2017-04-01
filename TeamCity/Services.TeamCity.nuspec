@@ -7,6 +7,6 @@
     <authors>Paul Marston</authors>
     </metadata>
     <files>
-        <file src="*" target="content" />
+        <file src="*" target="" />
     </files>
 </package>
