@@ -22,7 +22,7 @@
             }
         },
         "nodeConfigurationName": {
-            "value": "Services.Frontend"
+            "value": "Services.ServicesWeb"
         },
         "timestamp": {
             "value": "#{Octopus.Deployment.CreatedUtc}"

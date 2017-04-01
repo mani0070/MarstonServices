@@ -1,6 +1,7 @@
 PSModule AzureRM
 {
-    Name              = 'AzureRM'
+    Name              = "AzureRM"
     Repository        = "PSGallery"
-    InstallationPolicy= "Trusted"     
+    InstallationPolicy= "Trusted"   
+    DependsOn         = "[PackageManagementSource]PSGallery"  
 }   

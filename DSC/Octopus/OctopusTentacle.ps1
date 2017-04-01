@@ -52,12 +52,13 @@ Script OctopusDeployTentacleConfiguration
         Invoke-OctopusTentacle configure @( '--trust', '4793C33E7629917F9289FA64EE4F1FFFD63E751E')
         Invoke-OctopusTentacle register-with @( '--server', "http://localhost:1986/",
                                                 '--apikey', "API-CPC5WKFFPGXSNOKDYRSDND1BDWE",
-                                                '--name', "Services Web",
+                                                '--name', "Services Web ($($customdata.BlueGreen))",
                                                 '--environment', "Microsoft Azure",
                                                 '--role', "Service Server",
                                                 '--role', "Azure Automation",
                                                 '--tenanttag', "Deployment Style/Environment Deployment",
                                                 '--tenanttag', "Deployment Style/Tenant Deployment", 
+                                                '--tenanttag', "Blue Green Deployment/$($customdata.BlueGreen)", 
                                                 '--comms-style', "TentaclePassive",
                                                 '--force')
         Invoke-OctopusTentacle service @('--install', '--reconfigure', '--stop')
