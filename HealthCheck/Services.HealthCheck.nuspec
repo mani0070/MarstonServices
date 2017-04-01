@@ -7,6 +7,6 @@
     <authors>Paul Marston</authors>
     </metadata>
     <files>
-        <file src="healthcheck" target="healthcheck" />
+        <file src="healthcheck.txt" target="healthcheck.txt" />
     </files>
 </package>
