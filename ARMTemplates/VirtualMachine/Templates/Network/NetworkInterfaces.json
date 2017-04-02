@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "servicesResourceGroupName": {
+        "sharedResourceGroupName": {
             "type": "string"
         },
         "publicIpAddressName": {
@@ -10,7 +10,7 @@
         }
     },
     "variables": {
-        "virtualNetworkId": "[resourceId(parameters('servicesResourceGroupName'),'Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
+        "virtualNetworkId": "[resourceId(parameters('sharedResourceGroupName'),'Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
         "subnetId": "[concat(variables('virtualNetworkId'),'/subnets/', 'Default')]"
     },
     "resources": [{
@@ -25,7 +25,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId(parameters('servicesResourceGroupName'), 'Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]"
+                                "id": "[resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses/', parameters('publicIpAddressName'))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetId')]"

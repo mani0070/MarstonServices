@@ -12,14 +12,14 @@
 xRemoteFile VSBuildTools
 {
     Uri = 'https://download.microsoft.com/download/C/3/7/C37763CB-E533-4290-BE34-1DF89C218CFE/vs_BuildTools.exe'
-    DestinationPath = 'D:\vs_BuildTools.exe'
+    DestinationPath = 'D:\Installers\vs_BuildTools.exe'
     MatchSource = $false
 }
 xPackage VSBuildTools
 {
     Ensure = 'Present'
     Name = 'Microsoft Visual Studio 2017'
-    Path  = 'D:\vs_BuildTools.exe'
+    Path  = 'D:\Installers\vs_BuildTools.exe'
     ProductId = ''
     Arguments = "--all --includeRecommended --includeOptional  --quiet --norestart --wait"
     ReturnCode =  0

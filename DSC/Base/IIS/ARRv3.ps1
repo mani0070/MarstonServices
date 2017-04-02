@@ -1,7 +1,7 @@
 xRemoteFile ARRv3
 {
     Uri = "http://download.microsoft.com/download/E/9/8/E9849D6A-020E-47E4-9FD0-A023E99B54EB/requestRouter_amd64.msi"
-    DestinationPath = "D:\requestRouter_amd64.msi"
+    DestinationPath = "D:\Installers\requestRouter_amd64.msi"
     MatchSource = $false
 }
 Script ARRv3
@@ -10,7 +10,7 @@ Script ARRv3
         & "${env:SystemRoot}\System32\net.exe" stop was /y
         & "${env:SystemRoot}\System32\net.exe" stop wmsvc
         
-        & "D:\requestRouter_amd64.msi"
+        & "D:\Installers\requestRouter_amd64.msi"
 
         & "${env:SystemRoot}\System32\net.exe" start was
         & "${env:SystemRoot}\System32\net.exe" start w3svc

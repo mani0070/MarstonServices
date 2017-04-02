@@ -2,13 +2,13 @@ Environment TeamCityDataDir
 {
     Ensure = "Present" 
     Name = "TEAMCITY_DATA_PATH"
-    Value = "\\${AzureStorageAccountName}.file.core.windows.net\teamcity"
+    Value = 'D:\TeamCityData'
 }
 File TeamCityServerInstall
 {
     DestinationPath = "$($env:SystemDrive)\TeamCity"
     Recurse = $true
-    SourcePath = 'D:\TeamCity'
+    SourcePath = 'D:\Installers\TeamCity'
     Type = 'Directory'
     MatchSource = $false
     DependsOn = '[Script]TeamCityExtract'
@@ -16,6 +16,17 @@ File TeamCityServerInstall
 
 $teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
 New-ServiceAccount $teamcityServiceCredential
+Script TeamCityDataDirCopy
+{
+    SetScript = {
+        & robocopy.exe "\\${AzureStorageAccountName}.file.core.windows.net\teamcity" 'D:\TeamCityData' /MIR /Z /MT /NP /NFL *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) { throw "robocopy.exe exit code $LASTEXITCODE" }
+    }
+    TestScript = { Test-Path 'D:\TeamCityData' }
+    GetScript = { @{} }
+    PsDscRunAsCredential = $teamcityServiceCredential
+    DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
+}
 Script TeamCityServerConfig
 {
     SetScript = {
@@ -24,7 +35,7 @@ Script TeamCityServerConfig
     }
     TestScript = { $null -ne (Get-Service TeamCity -ErrorAction Ignore) }
     GetScript = { @{} }
-    DependsOn = '[File]TeamCityServerInstall'
+    DependsOn = @('[File]TeamCityServerInstall','[Script]TeamCityDataDirCopy')
 }
 Service TeamCity
 {
@@ -32,5 +43,5 @@ Service TeamCity
     Credential  = $teamcityServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey')
+    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey','[Script]TeamCityDataDirCopy')
 }

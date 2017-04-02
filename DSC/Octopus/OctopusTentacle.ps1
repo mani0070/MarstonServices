@@ -13,16 +13,16 @@ xFirewall OctopusDeployTentacle
 xRemoteFile OctopusDeployTentacle
 {
     Uri = 'https://octopus.com/downloads/latest/WindowsX64/OctopusTentacle'
-    DestinationPath = 'D:\OctopusDeployTentacle.msi'
+    DestinationPath = 'D:\Installers\OctopusDeployTentacle.msi'
     MatchSource = $false
 }
 xPackage OctopusDeployTentacle
 {
     Ensure = 'Present'
     Name = 'Octopus Deploy Tentacle'
-    Path  = 'D:\OctopusDeployTentacle.msi'
+    Path  = 'D:\Installers\OctopusDeployTentacle.msi'
     ProductId = '267B9530-1A47-4BF7-98BF-B37CC49B0C3D'
-    Arguments = "/quiet /l*v `"D:\OctopusDeployTentacle.log`""
+    Arguments = "/quiet /l*v `"D:\Installers\OctopusDeployTentacle.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployTentacle"
 }

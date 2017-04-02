@@ -2,30 +2,33 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "vmAdminUsername": {
+            "reference": {
+                "keyVault": {
+                    "id": "#{KeyVaultResourceId}"
+                },
+                "secretName": "VMAdminUsername"
+            }
+        },
+        "vmAdminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "#{KeyVaultResourceId}"
+                },
+                "secretName": "VMAdminPassword"
+            }
+        },
+        "customData": {
+            "value": "#{NodeCustomData}"
+        },
+        "keyVaultResourceId": {
+           "value": "#{KeyVaultResourceId}"
+        },
+        "servicesMarstonMeCertificateUrl": {
+            "value": "#{ServicesMarstonMeCertificateUrl}"
+        },
         "vmName": {
-            "value": "#{NodeVMName}"
-        },
-        "registrationKey": {
-            "reference": {
-                "keyVault": {
-                    "id": "#{KeyVaultResourceId}"
-                },
-                "secretName": "AutomationRegistrationKey"
-            }
-        },
-        "registrationUrl": {
-            "reference": {
-                "keyVault": {
-                    "id": "#{KeyVaultResourceId}"
-                },
-                "secretName": "AutomationRegistrationUrl"
-            }
-        },
-        "nodeConfigurationName": {
-            "value": "Services.ServicesWeb"
-        },
-        "timestamp": {
-            "value": "#{Octopus.Deployment.CreatedUtc}"
+            "value": "ServicesWeb"
         }
     }
 }

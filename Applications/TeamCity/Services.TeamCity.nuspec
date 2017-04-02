@@ -7,6 +7,6 @@
     <authors>Paul Marston</authors>
     </metadata>
     <files>
-        <file src="*" target="" />
+        <file src="PostDeploy.ps1" target="" />
     </files>
 </package>

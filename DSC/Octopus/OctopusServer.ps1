@@ -17,16 +17,16 @@ New-ServiceAccount $octopusDeployServiceCredential
 xRemoteFile OctopusDeployServer
 {
     Uri = 'https://octopus.com/downloads/latest/WindowsX64/OctopusServer'
-    DestinationPath = 'D:\OctopusDeployServer.msi'
+    DestinationPath = 'D:\Installers\OctopusDeployServer.msi'
     MatchSource = $false
 }
 xPackage OctopusDeployServer
 {
     Ensure = 'Present'
     Name = 'Octopus Deploy Server'
-    Path  = 'D:\OctopusDeployServer.msi'
+    Path  = 'D:\Installers\OctopusDeployServer.msi'
     ProductId = '50F30DAB-9E7D-47D9-A1CE-11B53B5F2EAD'
-    Arguments = "/quiet /l*v `"D:\OctopusDeployServer.log`""
+    Arguments = "/quiet /l*v `"D:\Installers\OctopusDeployServer.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployServer"
 }
@@ -61,7 +61,7 @@ Script OctopusDeployConfiguration
                                             '--webForceSSL', 'False', `
                                             '--webListenPrefixes', 'https://octopus.services.marston.me,http://localhost:1986', `
                                             '--commsListenPort', '10943', `
-                                            '--serverNodeName', 'Services Web', `
+                                            '--serverNodeName', $env:COMPUTERNAME, `
                                             '--masterKey', $using:OctopusMasterKey)
         Invoke-OctopusServer path @('--artifacts', "\\$($using:AzureStorageAccountName).file.core.windows.net\octopusdeploy\Artifacts")
         Invoke-OctopusServer path @('--taskLogs', "\\$($using:AzureStorageAccountName).file.core.windows.net\octopusdeploy\TaskLogs")

@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vmName": {
-            "value": "#{NodeVMName}"
+            "value": "ServicesWeb"
         },
         "keyVaultSecretUrl": {
             "value": "#{Octopus.Action[Azure Disk Encryption].Output.AzureRMOutputs[keyVaultSecretUrl]}"

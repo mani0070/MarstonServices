@@ -15,7 +15,7 @@ File TeamCityAgentInstall
 {
     DestinationPath = "$($env:SystemDrive)\buildAgent"
     Recurse = $true
-    SourcePath = 'D:\TeamCity\buildAgent'
+    SourcePath = 'D:\Installers\TeamCity\buildAgent'
     Type = 'Directory'
     MatchSource = $false
     DependsOn = '[Script]TeamCityExtract'

@@ -5,8 +5,8 @@
         "publicIpAddressName": {
             "value": "ServicesPIP#{Octopus.Deployment.Tenant.Name}"
         },
-        "servicesResourceGroupName": {
-            "value": "#{ServicesResourceGroupName}"
+        "sharedResourceGroupName": {
+            "value": "#{SharedResourceGroupName}"
         }
     }
 }
