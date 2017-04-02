@@ -43,7 +43,7 @@ WindowsFeature WebBasicAuth
 WindowsFeature WebWindowsAuth
 {
     Ensure = 'Present'
-    Name = ' Web-Windows-Auth'
+    Name = 'Web-Windows-Auth'
     DependsOn = '[WindowsFeature]WebWebServer'
 }
 WindowsFeature WebNetExt

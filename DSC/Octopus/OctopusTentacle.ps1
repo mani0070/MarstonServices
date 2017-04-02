@@ -29,7 +29,9 @@ xPackage OctopusDeployTentacle
 Script OctopusDeployTentacleConfiguration
 {
     SetScript = {
-        $customdata = Get-Content -Path (Join-Path $env:SystemDrive '\AzureData\CustomData.bin') | ConvertFrom-Json
+        $jsonEncoded = Get-Content -Path (Join-Path $env:SystemDrive '\AzureData\CustomData.bin') -Raw 
+        $jsonObjectBytes = [System.Convert]::FromBase64String($jsonEncoded)
+        $jsonObject = [System.Text.Encoding]::UTF8.GetString($jsonObjectBytes) | ConvertFrom-Json
 
         function Invoke-OctopusTentacle {
             param(
