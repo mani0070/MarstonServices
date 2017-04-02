@@ -10,7 +10,7 @@ Script OctopusDeployment
         $project = Invoke-Octopus /api/projects/all | % GetEnumerator | ? Name -eq '4 - Application Deployment'
         $releaseId = Invoke-Octopus "$($project.Links.Self)/releases" | % Items | Select-Object -First 1 | % Id
         Write-Verbose "ReleaseId: $releaseId"
-        Invoke-Octopus /api/tenants/all?projectid=$($project.Id) | % GetEnumerator | % Id | % {
+        Invoke-Octopus "/api/tenants/all?projectid=$($project.Id)" | % GetEnumerator | % Id | % {
             Invoke-Octopus -Uri 'api/deployments' -Method Post -Body @{
                 ReleaseId = $releaseId
                 EnvironmentId = $environmentId
