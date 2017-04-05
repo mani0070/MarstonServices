@@ -1,7 +1,7 @@
 @{
     AllNodes = @(
         @{
-            NodeName = 'ServicesWeb'
+            NodeName = 'Web'
             PSDscAllowPlainTextPassword = $true
         }
     )
