@@ -36,7 +36,7 @@
         },
         {
             "type": "Microsoft.Network/dnszones/CNAME",
-            "name": "[concat(variables('dnsZoneName'), '/teamcity')]",
+            "name": "[concat(variables('dnsZoneName'), '/proget')]",
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,
