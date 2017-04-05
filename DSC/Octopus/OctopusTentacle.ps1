@@ -69,6 +69,7 @@ Service OctopusDeployTentacle
 {
     Name        = 'OctopusDeploy Tentacle'
     State       = 'Running'
+    Credential  = (Get-AutomationPSCredential -Name OctopusDeploy)
     DependsOn   = @('[Script]OctopusDeployTentacleConfiguration','[Service]OctopusDeploy')
 }
 Script OctopusDeployTentacleWatchdog
