@@ -10,18 +10,30 @@
         }
     },
     "resources": [{
-        "apiVersion": "2016-12-01",
-        "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[parameters('publicIpAddressName')]",
-        "location": "[resourceGroup().location]",
-        "properties": {
-            "publicIPAllocationMethod": "Static",
-            "idleTimeoutInMinutes": 30,
-            "dnsSettings": {
-                "domainNameLabel": "[parameters('publicIpAddressDns')]"
+            "apiVersion": "2016-12-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIpAddressName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 30,
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('publicIpAddressDns')]"
+                }
             }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses/providers/locks",
+            "name": "[concat(parameters('publicIpAddressName'), '/Microsoft.Authorization/lock')]",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "level": "CannotDelete"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpAddressName'))]"
+            ]
         }
-    }],
+    ],
     "outputs": {
         "resourceId": {
             "type": "string",

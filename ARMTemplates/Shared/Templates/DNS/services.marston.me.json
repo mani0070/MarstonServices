@@ -32,6 +32,16 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
             ]
+        }, {
+            "type": "Microsoft.Network/dnszones/providers/locks",
+            "name": "[concat(parameters('zoneName'), '/Microsoft.Authorization/lock')]",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "level": "CannotDelete"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
+            ]
         }
     ],
     "outputs": {

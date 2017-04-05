@@ -26,5 +26,15 @@
                 }
             }
         }
+    }, {
+        "type": "Microsoft.Storage/storageAccounts/providers/locks",
+        "name": "[concat(parameters('storageAccountName'), '/Microsoft.Authorization/lock')]",
+        "apiVersion": "2016-09-01",
+        "properties": {
+            "level": "CannotDelete"
+        },
+        "dependsOn": [
+            "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+        ]
     }]
 }
