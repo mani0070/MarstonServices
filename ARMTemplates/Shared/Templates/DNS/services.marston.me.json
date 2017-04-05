@@ -5,39 +5,51 @@
         "zoneName": {
             "type": "string",
             "defaultValue": "services.marston.me"
-        },
-        "nodesNameserver1": {
-            "type": "string"
-        },
-        "nodesNameserver2": {
-            "type": "string"
-        },
-        "nodesNameserver3": {
-            "type": "string"
-        },
-        "nodesNameserver4": {
-            "type": "string"
         }
     },
     "resources": [{
-        "type": "Microsoft.Network/dnszones/NS",
-        "name": "[concat(parameters('zoneName'), '/nodes')]",
-        "apiVersion": "2016-04-01",
-        "properties": {
-            "TTL": 3600,
-            "NSRecords": [{
-                    "nsdname": "[parameters('nodesNameserver1')]"
-                },
-                {
-                    "nsdname": "[parameters('nodesNameserver2')]"
-                },
-                {
-                    "nsdname": "[parameters('nodesNameserver3')]"
-                },
-                {
-                    "nsdname": "[parameters('nodesNameserver4')]"
+            "type": "Microsoft.Network/dnszones",
+            "name": "[parameters('zoneName')]",
+            "apiVersion": "2016-04-01",
+            "location": "global",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Network/dnszones/SOA",
+            "name": "[concat(parameters('zoneName'), '/@')]",
+            "apiVersion": "2016-04-01",
+            "properties": {
+                "TTL": 3600,
+                "SOARecord": {
+                    "email": "admin.marston.me",
+                    "expireTime": 86400,
+                    "minimumTTL": 30,
+                    "refreshTime": 3600,
+                    "retryTime": 300,
+                    "host": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[0]]"
                 }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
             ]
         }
-    }]
+    ],
+    "outputs": {
+        "nameserver1": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[0]]"
+        },
+        "nameserver2": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[1]]"
+        },
+        "nameserver3": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[2]]"
+        },
+        "nameserver4": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[3]]"
+        }
+    }
 }

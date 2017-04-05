@@ -6,7 +6,7 @@
             "value": "ServicesPIPGreen"
         },
         "publicIpAddressDns": {
-            "value": "green.nodes.services.marston.me"
+            "value": "greenservicesmarstonme"
         }
     }
 }

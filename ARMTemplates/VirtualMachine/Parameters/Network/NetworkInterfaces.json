@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "publicIpAddressName": {
-            "value": "ServicesPIP#{Octopus.Deployment.Tenant.Name}"
+            "value": "ServicesPIP#{Octopus.Release.Channel.Name}"
         },
         "sharedResourceGroupName": {
             "value": "#{SharedResourceGroupName}"

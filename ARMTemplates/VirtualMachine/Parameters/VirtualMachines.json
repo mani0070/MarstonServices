@@ -28,7 +28,7 @@
             "value": "#{ServicesMarstonMeCertificateUrl}"
         },
         "vmName": {
-            "value": "ServicesWeb"
+            "value": "#{VMName}"
         }
     }
 }

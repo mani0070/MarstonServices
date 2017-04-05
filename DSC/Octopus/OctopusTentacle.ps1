@@ -55,11 +55,10 @@ Script OctopusDeployTentacleConfiguration
         Invoke-OctopusTentacle register-with (@( '--server', "http://localhost:1986/",
                                                 '--apikey', "API-CPC5WKFFPGXSNOKDYRSDND1BDWE",
                                                 '--name', "Services Web ($($customdata.BlueGreen))",
-                                                '--environment', $customdata.Environment,
                                                 '--tenanttag', "Deployment Style/Environment Deployment",
                                                 '--tenanttag', "Deployment Style/Tenant Deployment", 
                                                 '--comms-style', "TentaclePassive",
-                                                '--force') + ($customdata.Roles | % { '--role', $_ }))
+                                                '--force') + ($customdata.Roles | % { '--role', $_ }) + ($customdata.Environment | % { '--environment', $_ }))
         Invoke-OctopusTentacle service @('--install', '--reconfigure', '--stop')
     }
     TestScript = { $null -ne (Get-Service 'OctopusDeploy Tentacle' -ErrorAction Ignore) }

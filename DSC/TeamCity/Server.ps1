@@ -19,7 +19,7 @@ New-ServiceAccount $teamcityServiceCredential
 Script TeamCityDataDirCopy
 {
     SetScript = {
-        & robocopy.exe "\\${AzureStorageAccountName}.file.core.windows.net\teamcity" 'D:\TeamCityData' /MIR /Z /MT /NP /NFL *>&1 | Write-Verbose
+        & robocopy.exe "\\$($using:AzureStorageAccountName).file.core.windows.net\teamcity" 'D:\TeamCityData' /MIR /MT /NP /NFL *>&1 | Write-Verbose
         if ($LASTEXITCODE -ne 0) { throw "robocopy.exe exit code $LASTEXITCODE" }
     }
     TestScript = { Test-Path 'D:\TeamCityData' }

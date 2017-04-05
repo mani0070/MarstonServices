@@ -9,7 +9,7 @@
             "value": "#{OctopusAzureADPassword}"
         },
         "vmName": {
-            "value": "ServicesWeb"
+            "value": "#{VMName}"
         },
         "keyVaultName": {
             "value": "#{KeyVaultName}"
