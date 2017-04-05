@@ -13,5 +13,5 @@ Configuration Services
     Import-DscResource -ModuleName xSystemSecurity
     Import-DscResource -ModuleName PackageManagementProviderResource
         
-    @include "/Nodes/ServicesWeb"
+    @include "/Nodes/Web"
 }
