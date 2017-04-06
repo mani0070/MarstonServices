@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+    <id>Services.VSTS</id>
+    <version>$version$</version>
+    <description>Services Marston Me - VSTS</description>
+    <authors>Paul Marston</authors>
+    </metadata>
+    <files>
+        <file src="PostDeploy.ps1" target="" />
+    </files>
+</package>
