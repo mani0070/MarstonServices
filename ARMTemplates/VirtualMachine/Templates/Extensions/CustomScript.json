@@ -20,7 +20,7 @@
       "typeHandlerVersion": "1.8",
       "autoUpgradeMinorVersion": true,
       "settings": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -EncodedCommand ', base64(parameters('powershell')))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -EncodedCommand ', parameters('powershell'))]"
       }
     }
   }]
