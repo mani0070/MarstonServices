@@ -25,7 +25,7 @@ xPackage OctopusDeployServer
     Ensure = 'Present'
     Name = 'Octopus Deploy Server'
     Path  = 'D:\Installers\OctopusDeployServer.msi'
-    ProductId = '50F30DAB-9E7D-47D9-A1CE-11B53B5F2EAD'
+    ProductId = ''
     Arguments = "/quiet /l*v `"D:\Installers\OctopusDeployServer.log`""
     ReturnCode = 0
     DependsOn = "[xRemoteFile]OctopusDeployServer"
