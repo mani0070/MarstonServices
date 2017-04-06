@@ -20,7 +20,7 @@ Script TeamCityDataDirCopy
 {
     SetScript = {
         & robocopy.exe "\\$($using:AzureStorageAccountName).file.core.windows.net\teamcity" 'D:\TeamCityData' /MIR /MT /NP /NFL *>&1 | Write-Verbose
-        if ($LASTEXITCODE -ne 0) { throw "robocopy.exe exit code $LASTEXITCODE" }
+        if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) { throw "robocopy.exe exit code $LASTEXITCODE" }
     }
     TestScript = { Test-Path 'D:\TeamCityData' }
     GetScript = { @{} }
