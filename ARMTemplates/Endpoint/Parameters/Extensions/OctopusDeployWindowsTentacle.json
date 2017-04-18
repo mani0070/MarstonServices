@@ -1,0 +1,32 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "value": "#{VMName}"
+        },
+        "octopusServerUrl": {
+            "value": "#{Octopus.Web.BaseUrl}"
+        },
+        "apiKey": {
+            "reference": {
+                "keyVault": {
+                    "id": "#{KeyVaultResourceId}"
+                },
+                "secretName": "OctopusApiKey"
+            }
+        },
+        "environments": {
+            "value": "#{Octopus.Environment.Name}"
+        },
+        "roles": {
+            "value": "#{Octopus.Machine.Roles}"
+        },
+        "tenantTags": {
+            "value": "#{Octopus.Machine.Tags}"
+        },
+        "tenants": {
+            "value": "#{Octopus.Machine.TenantIds}"
+        }
+    }
+}

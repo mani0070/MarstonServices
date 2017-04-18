@@ -6,7 +6,7 @@
             "value": "#{SQLServerName}"
         },
         "databaseName": {
-            "value": "TeamCity"
+            "value": "#{Octopus.Deployment.Tenant.Name}"
         }
     }
 }

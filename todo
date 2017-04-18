@@ -1,0 +1,9 @@
+disable other tentacle to avoid dupes?
+zip TC data folder and upload it in bulk
+at end go to azure auto webhook to kick off next deploy
+add backup phaase first: tc+octopus backup commands
+3x traffic manager
+
+& "${env:ProgramFiles}\7-Zip\7z.exe" a "D:\Installers\ProGetSetup_Manual.zip" ${env:TEAMCITY_DATA_PATH}\
+
+each colour runs in different sub - allows double credit usage

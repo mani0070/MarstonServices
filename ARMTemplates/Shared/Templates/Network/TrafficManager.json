@@ -8,12 +8,15 @@
                 "Blue",
                 "Green"
             ]
+        },
+        "appName":{
+            "type": "string"
         }
     },
     "variables": {
-        "trafficManagerName": "ServicesMarstonMe",
+        "trafficManagerName": "[concat(parameters('appName'), 'ServicesMarstonMe')]",
         "dnsZoneName": "services.marston.me",
-        "trafficManagerRelativeName": "[replace(variables('dnsZoneName'), '.', '')]",
+        "trafficManagerRelativeName": "[concat(toLower(parameters('appName')), replace(variables('dnsZoneName'), '.', ''))]",
         "BlueSecondaryName": "Green",
         "GreenSecondaryName": "Blue",
         "secondaryName": "[variables(concat(parameters('primaryName'), 'SecondaryName'))]",
@@ -25,39 +28,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/dnszones/CNAME",
-            "name": "[concat(variables('dnsZoneName'), '/vsts')]",
-            "apiVersion": "2016-04-01",
-            "properties": {
-                "TTL": 3600,
-                "CNAMERecord": {
-                    "cname": "[reference(resourceId('Microsoft.Network/trafficManagerProfiles', variables('trafficManagerName'))).dnsConfig.fqdn]"
-                }
-            }
-        },{
-            "type": "Microsoft.Network/dnszones/CNAME",
-            "name": "[concat(variables('dnsZoneName'), '/teamcity')]",
-            "apiVersion": "2016-04-01",
-            "properties": {
-                "TTL": 3600,
-                "CNAMERecord": {
-                    "cname": "[reference(resourceId('Microsoft.Network/trafficManagerProfiles', variables('trafficManagerName'))).dnsConfig.fqdn]"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Network/dnszones/CNAME",
-            "name": "[concat(variables('dnsZoneName'), '/proget')]",
-            "apiVersion": "2016-04-01",
-            "properties": {
-                "TTL": 3600,
-                "CNAMERecord": {
-                    "cname": "[reference(resourceId('Microsoft.Network/trafficManagerProfiles', variables('trafficManagerName'))).dnsConfig.fqdn]"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Network/dnszones/CNAME",
-            "name": "[concat(variables('dnsZoneName'), '/octopus')]",
+            "name": "[concat(variables('dnsZoneName'), '/', toLower(parameters('appName')))]",
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,

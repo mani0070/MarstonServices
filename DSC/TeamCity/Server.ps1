@@ -13,19 +13,27 @@ File TeamCityServerInstall
     MatchSource = $false
     DependsOn = '[Script]TeamCityExtract'
 }
+File TeamCityDataDirCopy
+{
+    DestinationPath = "D:\TeamCityData.zip"
+    SourcePath = "\\$($AzureStorageAccountName).file.core.windows.net\teamcity\TeamCity.zip"
+    Type = 'File'
+    MatchSource = $false
+    PsDscRunAsCredential = $teamcityServiceCredential
+    DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
+}
 
 $teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
 New-ServiceAccount $teamcityServiceCredential
-Script TeamCityDataDirCopy
+Script TeamCityDataDirExtract
 {
     SetScript = {
-        & robocopy.exe "\\$($using:AzureStorageAccountName).file.core.windows.net\teamcity" 'D:\TeamCityData' /MIR /MT /NP /NFL *>&1 | Write-Verbose
-        if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) { throw "robocopy.exe exit code $LASTEXITCODE" }
+        & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\TeamCityData.zip" -o"D:`xs"
+        if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) { throw "7z.exe exit code $LASTEXITCODE" }
     }
     TestScript = { Test-Path 'D:\TeamCityData' }
     GetScript = { @{} }
-    PsDscRunAsCredential = $teamcityServiceCredential
-    DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
+    DependsOn = @('[File]TeamCityDataDirCopy')
 }
 Script TeamCityServerConfig
 {
@@ -35,7 +43,7 @@ Script TeamCityServerConfig
     }
     TestScript = { $null -ne (Get-Service TeamCity -ErrorAction Ignore) }
     GetScript = { @{} }
-    DependsOn = @('[File]TeamCityServerInstall','[Script]TeamCityDataDirCopy')
+    DependsOn = @('[File]TeamCityServerInstall','[Script]TeamCityDataDirExtract')
 }
 Service TeamCity
 {
@@ -43,5 +51,5 @@ Service TeamCity
     Credential  = $teamcityServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey','[Script]TeamCityDataDirCopy')
+    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey','[Script]TeamCityDataDirExtract')
 }

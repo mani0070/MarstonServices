@@ -71,6 +71,17 @@
                 "endIpAddress": "82.69.58.153",
                 "startIpAddress": "82.69.58.153"
             }
+        },
+        {
+            "type": "Microsoft.Network/dnszones/providers/locks",
+            "name": "[concat(parameters('zoneName'), '/Microsoft.Authorization/lock')]",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "level": "CannotDelete"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
+            ]
         }
     ]
 }

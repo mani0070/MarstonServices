@@ -6,20 +6,13 @@
             "value": "#{SQLServerName}"
         },
         "sqlAdminUsername": {
-            "reference": {
-                "keyVault": {
-                    "id": "#{KeyVaultResourceId}"
-                },
-                "secretName": "SQLAdminUsername"
-            }
+            "value": "#{SQLServerName}"
         },
         "sqlAdminPassword": {
-            "reference": {
-                "keyVault": {
-                    "id": "#{KeyVaultResourceId}"
-                },
-                "secretName": "SQLAdminPassword"
-            }
+            "value": "#{SQLServerName}"
+        },
+        "endpointSubscriptionId": {
+            "value": "#{Az"
         },
         "sharedResourceGroupName": {
             "value": "#{SharedResourceGroupName}"

@@ -9,8 +9,11 @@
       "type": "string"
     }
   },
+  "variables": {
+    "databaseName": "[replace(parameters('databaseName'), ' ', '')]"
+  },
   "resources": [{
-    "name": "[concat(parameters('sqlServerName'), '/', parameters('databaseName'))]",
+    "name": "[concat(parameters('sqlServerName'), '/', variables('databaseName'))]",
     "type": "Microsoft.Sql/servers/databases",
     "location": "[resourceGroup().location]",
     "apiVersion": "2015-05-01-preview",
@@ -30,5 +33,16 @@
         "status": "Enabled"
       }
     }]
+  },
+  {
+    "type": "Microsoft.Sql/servers/databases/providers/locks",
+    "name": "[concat(variables('databaseName'), '/Microsoft.Authorization/lock')]",
+    "apiVersion": "2016-09-01",
+    "properties": {
+      "level": "CannotDelete"
+    },
+    "dependsOn": [
+      "[resourceId('Microsoft.Sql/servers/databases', parameters('zoneName'))]"
+    ]
   }]
 }
