@@ -33,17 +33,6 @@
           "status": "Enabled"
         }
       }]
-    },
-    {
-      "type": "Microsoft.Sql/servers/databases/providers/locks",
-      "name": "[concat(parameters('sqlServerName'), '/', variables('databaseName'), '/Microsoft.Authorization/lock')]",
-      "apiVersion": "2016-09-01",
-      "properties": {
-        "level": "CannotDelete"
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.Sql/servers',parameters('sqlServerName'), variables('databaseName'))]"
-      ]
     }
   ]
 }
