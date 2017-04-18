@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sqlServerName": {
-            "value": "#{SQLServerName}"
+            "value": "#{SqlServerName}"
         },
         "databaseName": {
             "value": "#{Octopus.Deployment.Tenant.Name}"

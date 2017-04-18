@@ -13,36 +13,37 @@
     "databaseName": "[replace(parameters('databaseName'), ' ', '')]"
   },
   "resources": [{
-    "name": "[concat(parameters('sqlServerName'), '/', variables('databaseName'))]",
-    "type": "Microsoft.Sql/servers/databases",
-    "location": "[resourceGroup().location]",
-    "apiVersion": "2015-05-01-preview",
-    "properties": {
-      "edition": "Basic",
-      "requestedServiceObjectiveName": "Basic"
-    },
-    "resources": [{
-      "name": "current",
-      "type": "transparentDataEncryption",
-      "dependsOn": [
-        "[parameters('databaseName')]"
-      ],
+      "name": "[concat(parameters('sqlServerName'), '/', variables('databaseName'))]",
+      "type": "Microsoft.Sql/servers/databases",
       "location": "[resourceGroup().location]",
       "apiVersion": "2015-05-01-preview",
       "properties": {
-        "status": "Enabled"
-      }
-    }]
-  },
-  {
-    "type": "Microsoft.Sql/servers/databases/providers/locks",
-    "name": "[concat(variables('databaseName'), '/Microsoft.Authorization/lock')]",
-    "apiVersion": "2016-09-01",
-    "properties": {
-      "level": "CannotDelete"
+        "edition": "Basic",
+        "requestedServiceObjectiveName": "Basic"
+      },
+      "resources": [{
+        "name": "current",
+        "type": "transparentDataEncryption",
+        "dependsOn": [
+          "[parameters('databaseName')]"
+        ],
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-05-01-preview",
+        "properties": {
+          "status": "Enabled"
+        }
+      }]
     },
-    "dependsOn": [
-      "[resourceId('Microsoft.Sql/servers/databases', parameters('zoneName'))]"
-    ]
-  }]
+    {
+      "type": "Microsoft.Sql/servers/databases/providers/locks",
+      "name": "[concat(parameters('sqlServerName'), '/', variables('databaseName'), '/Microsoft.Authorization/lock')]",
+      "apiVersion": "2016-09-01",
+      "properties": {
+        "level": "CannotDelete"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/',parameters('sqlServerName'), '/', variables('databaseName'))]"
+      ]
+    }
+  ]
 }

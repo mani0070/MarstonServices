@@ -14,7 +14,13 @@
         "sharedResourceGroupName": {
             "type": "string"
         },
+        "blueSubscriptionId": {
+            "type": "string"
+        },
         "bluePublicIpName": {
+            "type": "string"
+        },
+        "greenSubscriptionId": {
             "type": "string"
         },
         "greenPublicIpName": {
@@ -42,8 +48,8 @@
                 "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
             "properties": {
-                "endIpAddress": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('bluePublicIpName'))).IpAddress]",
-                "startIpAddress": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('bluePublicIpName'))).IpAddress]"
+                "endIpAddress": "[reference(resourceId(parameters('blueSubscriptionId'), parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('bluePublicIpName')),'2016-12-01').IpAddress]",
+                "startIpAddress": "[reference(resourceId(parameters('blueSubscriptionId'), parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('bluePublicIpName')),'2016-12-01').IpAddress]"
             }
         },
         {
@@ -55,32 +61,19 @@
                 "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
             "properties": {
-                "endIpAddress": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('greenPublicIpName'))).IpAddress]",
-                "startIpAddress": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('greenPublicIpName'))).IpAddress]"
+                "endIpAddress": "[reference(resourceId(parameters('greenSubscriptionId'), parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('greenPublicIpName')),'2016-12-01').IpAddress]",
+                "startIpAddress": "[reference(resourceId(parameters('greenSubscriptionId'), parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('greenPublicIpName')),'2016-12-01').IpAddress]"
             }
         },
         {
-            "type": "Microsoft.Sql/servers/firewallrules",
-            "apiVersion": "2014-04-01-preview",
-            "location": "[resourceGroup().location]",
-            "name": "[concat(parameters('sqlServerName'), '/Home')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
-            ],
-            "properties": {
-                "endIpAddress": "82.69.58.153",
-                "startIpAddress": "82.69.58.153"
-            }
-        },
-        {
-            "type": "Microsoft.Network/dnszones/providers/locks",
-            "name": "[concat(parameters('zoneName'), '/Microsoft.Authorization/lock')]",
+            "type": "Microsoft.Sql/servers/providers/locks",
+            "name": "[concat(parameters('sqlServerName'), '/Microsoft.Authorization/lock')]",
             "apiVersion": "2016-09-01",
             "properties": {
                 "level": "CannotDelete"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ]
         }
     ]

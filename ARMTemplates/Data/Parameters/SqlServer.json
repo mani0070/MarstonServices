@@ -3,22 +3,25 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sqlServerName": {
-            "value": "#{SQLServerName}"
+            "value": "#{SqlServerName}"
         },
         "sqlAdminUsername": {
-            "value": "#{SQLServerName}"
+            "value": "#{AdminUsername}"
         },
         "sqlAdminPassword": {
-            "value": "#{SQLServerName}"
-        },
-        "endpointSubscriptionId": {
-            "value": "#{Az"
+            "value": "#{AdminPassword}"
         },
         "sharedResourceGroupName": {
             "value": "#{SharedResourceGroupName}"
         },
+        "blueSubscriptionId": {
+            "value": "#{OctopusAzureSubscriptionId[Blue]}"
+        },
         "bluePublicIpName": {
             "value": "ServicesPIPBlue"
+        },
+        "greenSubscriptionId": {
+            "value": "#{OctopusAzureSubscriptionId[Green]}"
         },
         "greenPublicIpName": {
             "value": "ServicesPIPGreen"
