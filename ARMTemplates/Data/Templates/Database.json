@@ -42,7 +42,7 @@
         "level": "CannotDelete"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Sql/servers',concat(parameters('sqlServerName'), '/', variables('databaseName')))]"
+        "[resourceId('Microsoft.Sql/servers',parameters('sqlServerName'), variables('databaseName'))]"
       ]
     }
   ]
