@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "nameserver1": {
-            "value": "#{Octopus.Action[DNS Zone - services.marston.me].Output.AzureRMOutputs[nameserver1]}"
+            "value": "#{Octopus.Action[services.marston.me].Output.AzureRMOutputs[nameserver1]}"
         },
         "nameserver2": {
-            "value": "#{Octopus.Action[DNS Zone - services.marston.me].Output.AzureRMOutputs[nameserver2]}"
+            "value": "#{Octopus.Action[services.marston.me].Output.AzureRMOutputs[nameserver2]}"
         },
         "nameserver3": {
-            "value": "#{Octopus.Action[DNS Zone - services.marston.me].Output.AzureRMOutputs[nameserver3]}"
+            "value": "#{Octopus.Action[services.marston.me].Output.AzureRMOutputs[nameserver3]}"
         },
         "nameserver4": {
-            "value": "#{Octopus.Action[DNS Zone - services.marston.me].Output.AzureRMOutputs[nameserver4]}"
+            "value": "#{Octopus.Action[services.marston.me].Output.AzureRMOutputs[nameserver4]}"
         }
     }
 }

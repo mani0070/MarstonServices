@@ -5,6 +5,21 @@
         "zoneName": {
             "type": "string",
             "defaultValue": "services.marston.me"
+        },
+        "sharedResourceGroupName": {
+            "type": "string"
+        },
+        "blueSubscriptionId": {
+            "type": "string"
+        },
+        "bluePublicIpName": {
+            "type": "string"
+        },
+        "greenSubscriptionId": {
+            "type": "string"
+        },
+        "greenPublicIpName": {
+            "type": "string"
         }
     },
     "resources": [{
@@ -32,6 +47,28 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
             ]
+        },
+        {
+            "type": "Microsoft.Network/dnszones/A",
+            "name": "[concat(parameters('zoneName'), '/blue')]",
+            "apiVersion": "2016-04-01",
+            "properties": {
+                "TTL": 3600,
+                "ARecords": [{
+                    "ipv4Address": "[reference(resourceId(parameters('blueSubscriptionId'), parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('bluePublicIpName')),'2016-12-01').IpAddress]"
+                }]
+            }
+        },
+        {
+            "type": "Microsoft.Network/dnszones/A",
+            "name": "[concat(parameters('zoneName'), '/green')]",
+            "apiVersion": "2016-04-01",
+            "properties": {
+                "TTL": 3600,
+                "ARecords": [{
+                    "ipv4Address": "[reference(resourceId(parameters('greenSubscriptionId'), parameters('sharedResourceGroupName'), 'Microsoft.Network/publicIPAddresses', parameters('greenPublicIpName')),'2016-12-01').IpAddress]"
+                }]
+            }
         }, {
             "type": "Microsoft.Network/dnszones/providers/locks",
             "name": "[concat(parameters('zoneName'), '/Microsoft.Authorization/lock')]",
