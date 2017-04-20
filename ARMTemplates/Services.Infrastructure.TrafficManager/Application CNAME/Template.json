@@ -6,27 +6,26 @@
             "type": "string",
             "defaultValue": "services.marston.me"
         },
-        "sharedResourceGroupName":{
+        "sharedResourceGroupName": {
             "type": "string"
-            },
-        "appName":{
+        },
+        "appName": {
             "type": "string"
-            }
+        }
     },
     "variables": {
         "appName": "[replace(parameters('appName'),' ', '')]",
         "trafficManagerName": "[concat(variables('appName'), 'ServicesMarstonMe')]"
     },
-    "resources": [
-        {
-            "type": "Microsoft.Network/dnszones/CNAME",
-            "name": "[concat(parameters('zoneName'), '/', toLower(variables('appName')))]",
-            "apiVersion": "2016-04-01",
-            "properties": {
-                "TTL": 3600,
-                "CNAMERecord": {
-                    "cname": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/trafficManagerProfiles', variables('trafficManagerName')), '2015-11-01').dnsConfig.fqdn]"
-                }
+    "resources": [{
+        "type": "Microsoft.Network/dnszones/CNAME",
+        "name": "[concat(parameters('zoneName'), '/', toLower(variables('appName')))]",
+        "apiVersion": "2016-04-01",
+        "properties": {
+            "TTL": 3600,
+            "CNAMERecord": {
+                "cname": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/trafficManagerProfiles', variables('trafficManagerName')), '2015-11-01').dnsConfig.fqdn]"
+            }
         }
-    ]
+    }]
 }
