@@ -5,7 +5,7 @@
         "publicIpAddressName": {
             "type": "string"
         },
-        "publicIpAddressDns": {
+        "publicIpAddressFqdn": {
             "type": "string"
         }
     },
@@ -18,7 +18,8 @@
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 30,
                 "dnsSettings": {
-                    "domainNameLabel": "[parameters('publicIpAddressDns')]"
+                    "domainNameLabel": "[replace(parameters('publicIpAddressFqdn'), '.', '')]",
+                    "reverseFqdn": "[concat(parameters('publicIpAddressFqdn'), '.')]"
                 }
             }
         },
@@ -33,19 +34,5 @@
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpAddressName'))]"
             ]
         }
-    ],
-    "outputs": {
-        "resourceId": {
-            "type": "string",
-            "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpAddressName'))]"
-        },
-        "ipAddress": {
-            "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpAddressName'))).IpAddress]"
-        },
-        "fqdn": {
-            "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpAddressName'))).DnsSettings.fqdn]"
-        }
-    }
+    ]
 }

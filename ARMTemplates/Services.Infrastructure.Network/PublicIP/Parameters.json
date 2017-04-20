@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "publicIpAddressName": {
-            "value": "ServicesPIPBlue"
+            "value": "ServicesPIP#{DeploymentChannel}"
         },
-        "publicIpAddressDns": {
-            "value": "blueservicesmarstonme"
+        "publicIpAddressFqdn": {
+            "value": "#{DeploymentChannel | ToLower}.services.marston.me"
         }
     }
 }

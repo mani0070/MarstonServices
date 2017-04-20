@@ -1,3 +1,16 @@
+ServicesData
+    sql db x3
+    storage
+ServicesShared
+    tfm x4
+    automation
+    dns
+ServicesBlue/Green
+ServicesBlue/Green
+
+
+
+
 disable other tentacle to avoid dupes?
 zip TC data folder and upload it in bulk
 at end go to azure auto webhook to kick off next deploy
