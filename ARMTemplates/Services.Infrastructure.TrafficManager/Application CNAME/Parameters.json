@@ -5,8 +5,8 @@
         "sharedResourceGroupName": {
             "value": "#{SharedResourceGroupName}"
         },
-        "appName": {
-            "value": "#{Octopus.Deployment.Tenant.Name}"
+        "parameters": {
+            "value": "#{ShortName}"
         }
     }
 }

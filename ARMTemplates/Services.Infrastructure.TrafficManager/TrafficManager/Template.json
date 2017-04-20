@@ -9,15 +9,14 @@
             ],
             "type": "string"
         },
-        "appName": {
+        "shortName": {
             "type": "string"
         }
     },
     "variables": {
-        "appName": "[replace(parameters('appName'),' ', '')]",
-        "trafficManagerName": "[concat(variables('appName'), 'ServicesMarstonMe')]",
+        "trafficManagerName": "[concat(parameters('shortName'), 'ServicesMarstonMe')]",
         "dnsZoneName": "services.marston.me",
-        "trafficManagerRelativeName": "[concat(toLower(variables('appName')), replace(variables('dnsZoneName'), '.', ''))]",
+        "trafficManagerRelativeName": "[concat(toLower(parameters('shortName')), replace(variables('dnsZoneName'), '.', ''))]",
         "BluePrimaryName": "Green",
         "GreenPrimaryName": "Blue",
         "primaryName": "[variables(concat(parameters('secondaryName'), 'PrimaryName'))]",

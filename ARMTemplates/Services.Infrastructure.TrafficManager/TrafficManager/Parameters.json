@@ -5,8 +5,8 @@
         "secondaryName": {
             "value": "#{DeploymentChannel}"
         },
-        "appName": {
-            "value": "#{Octopus.Deployment.Tenant.Name}"
+        "shortName": {
+            "value": "#{ShortName}"
         }
     }
 }
