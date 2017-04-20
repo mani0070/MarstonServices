@@ -9,17 +9,16 @@
         "sharedResourceGroupName": {
             "type": "string"
         },
-        "appName": {
+        "shortName": {
             "type": "string"
         }
     },
     "variables": {
-        "appName": "[replace(parameters('appName'),' ', '')]",
-        "trafficManagerName": "[concat(variables('appName'), 'ServicesMarstonMe')]"
+        "trafficManagerName": "[concat(parameters('shortName'), 'ServicesMarstonMe')]"
     },
     "resources": [{
         "type": "Microsoft.Network/dnszones/CNAME",
-        "name": "[concat(parameters('zoneName'), '/', toLower(variables('appName')))]",
+        "name": "[concat(parameters('zoneName'), '/', toLower(parameters('shortName')))]",
         "apiVersion": "2016-04-01",
         "properties": {
             "TTL": 3600,

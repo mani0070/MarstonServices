@@ -5,7 +5,7 @@
         "sharedResourceGroupName": {
             "value": "#{SharedResourceGroupName}"
         },
-        "parameters": {
+        "shortName": {
             "value": "#{ShortName}"
         }
     }
