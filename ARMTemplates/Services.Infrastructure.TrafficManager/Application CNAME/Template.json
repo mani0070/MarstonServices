@@ -5,61 +5,28 @@
         "zoneName": {
             "type": "string",
             "defaultValue": "services.marston.me"
-        }
-    },
-    "resources": [{
-            "type": "Microsoft.Network/dnszones",
-            "name": "[parameters('zoneName')]",
-            "apiVersion": "2016-04-01",
-            "location": "global",
-            "properties": {}
         },
+        "sharedResourceGroupName":{
+            "type": "string"
+            },
+        "appName":{
+            "type": "string"
+            }
+    },
+    "variables": {
+        "appName": "[replace(parameters('appName'),' ', '')]",
+        "trafficManagerName": "[concat(variables('appName'), 'ServicesMarstonMe')]"
+    },
+    "resources": [
         {
-            "type": "Microsoft.Network/dnszones/SOA",
-            "name": "[concat(parameters('zoneName'), '/@')]",
+            "type": "Microsoft.Network/dnszones/CNAME",
+            "name": "[concat(parameters('zoneName'), '/', toLower(variables('appName')))]",
             "apiVersion": "2016-04-01",
             "properties": {
                 "TTL": 3600,
-                "SOARecord": {
-                    "email": "admin.marston.me",
-                    "expireTime": 86400,
-                    "minimumTTL": 30,
-                    "refreshTime": 3600,
-                    "retryTime": 300,
-                    "host": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[0]]"
+                "CNAMERecord": {
+                    "cname": "[reference(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/trafficManagerProfiles', variables('trafficManagerName')), '2015-11-01').dnsConfig.fqdn]"
                 }
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
-            ]
-        }, {
-            "type": "Microsoft.Network/dnszones/providers/locks",
-            "name": "[concat(parameters('zoneName'), '/Microsoft.Authorization/lock')]",
-            "apiVersion": "2016-09-01",
-            "properties": {
-                "level": "CannotDelete"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/dnszones', parameters('zoneName'))]"
-            ]
         }
-    ],
-    "outputs": {
-        "nameserver1": {
-            "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[0]]"
-        },
-        "nameserver2": {
-            "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[1]]"
-        },
-        "nameserver3": {
-            "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[2]]"
-        },
-        "nameserver4": {
-            "type": "string",
-            "value": "[reference(resourceId('Microsoft.Network/dnszones', parameters('zoneName'))).nameServers[3]]"
-        }
-    }
+    ]
 }
