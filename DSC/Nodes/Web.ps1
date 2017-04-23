@@ -27,7 +27,7 @@ Node Web
     @include "/ProGet/ProGet"
 
     @include "/Octopus/OctopusServer"
-    @include "/Octopus/OctopusTentacle"
+    #@include "/Octopus/OctopusTentacle"
 
     xFirewall HTTPFirewall
     {
