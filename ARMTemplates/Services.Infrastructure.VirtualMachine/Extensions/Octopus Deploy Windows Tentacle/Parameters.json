@@ -9,12 +9,7 @@
             "value": "#{Octopus.Web.BaseUrl}"
         },
         "apiKey": {
-            "reference": {
-                "keyVault": {
-                    "id": "#{KeyVaultResourceId}"
-                },
-                "secretName": "OctopusApiKey"
-            }
+            "value": "API-U6ZKA1KC6L77IZK6NWUPMCZ0"
         },
         "environments": {
             "value": "#{Octopus.Environment.Name}"
