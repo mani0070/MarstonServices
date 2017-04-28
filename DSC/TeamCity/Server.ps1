@@ -13,27 +13,20 @@ File TeamCityServerInstall
     MatchSource = $false
     DependsOn = '[Script]TeamCityExtract'
 }
-File TeamCityDataDirCopy
-{
-    DestinationPath = "D:\TeamCityData.zip"
-    SourcePath = "\\$($AzureStorageAccountName).file.core.windows.net\teamcity\TeamCity.zip"
-    Type = 'File'
-    MatchSource = $false
-    PsDscRunAsCredential = $teamcityServiceCredential
-    DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
-}
 
 $teamcityServiceCredential = Get-AutomationPSCredential -Name TeamCity
 New-ServiceAccount $teamcityServiceCredential
 Script TeamCityDataDirExtract
 {
     SetScript = {
+        Copy-Item -Path "\\$($using:AzureStorageAccountName).file.core.windows.net\teamcity\TeamCity.zip" -Destination "D:\TeamCityData.zip" -Force -Verbose 
         & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\TeamCityData.zip" -o"D:\TeamCityData"
         if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) { throw "7z.exe exit code $LASTEXITCODE" }
     }
     TestScript = { Test-Path 'D:\TeamCityData' }
     GetScript = { @{} }
-    DependsOn = @('[File]TeamCityDataDirCopy')
+    DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
+    PsDscRunAsCredential = $teamcityServiceCredential
 }
 Script TeamCityServerConfig
 {
