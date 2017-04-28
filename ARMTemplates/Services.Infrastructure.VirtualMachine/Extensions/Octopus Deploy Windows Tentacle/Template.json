@@ -37,7 +37,7 @@
       "settings": {
         "OctopusServerUrl": "[parameters('octopusServerUrl')]",
         "Environments": "[parameters('environments')]",
-        "Roles": "[parameters('roles')]",
+        "Roles": "[split(parameters('roles'), ',')]",
         "TenantTags": "[split(parameters('tenantTags'), ',')]",
         "Tenants": "[parameters('tenants')]",
         "CommunicationMode": "Listen",
