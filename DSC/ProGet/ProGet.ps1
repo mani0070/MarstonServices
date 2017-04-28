@@ -1,6 +1,6 @@
 xRemoteFile ProGetArchive
 {
-    Uri = 'http://cdn.inedo.com/downloads/proget/ProGetSetup4.7.9_Manual.zip'
+    Uri = "http://cdn.inedo.com/downloads/proget/ProGetSetup$($ProGetVersion)_Manual.zip"
     DestinationPath = 'D:\Installers\ProGetSetup_Manual.zip'
     MatchSource = $false
 }

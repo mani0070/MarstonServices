@@ -28,7 +28,7 @@ New-ServiceAccount $teamcityServiceCredential
 Script TeamCityDataDirExtract
 {
     SetScript = {
-        & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\TeamCityData.zip" -o"D:`xs"
+        & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\TeamCityData.zip" -o"D:\TeamCityData"
         if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) { throw "7z.exe exit code $LASTEXITCODE" }
     }
     TestScript = { Test-Path 'D:\TeamCityData' }

@@ -5,13 +5,19 @@ Configuration Services
         $AzureStorageAccountName,
         $AzureStorageAccountKey,
         $OctopusConnectionString,
-        $OctopusMasterKey
+        $OctopusMasterKey,
+        $ProGetVersion
     )
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName xNetworking
     Import-DscResource -ModuleName xSystemSecurity
     Import-DscResource -ModuleName PackageManagementProviderResource
-        
-    @include "/Nodes/Web"
+
+    Node Web
+    { 
+        .include "/Nodes/Shared"
+        .include "/Nodes/Web"
+    }
 }
