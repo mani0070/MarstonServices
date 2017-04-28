@@ -17,13 +17,23 @@
             }
         },
         "environments": {
-            "value": "Microsoft Azure,ServicesData,ServicesShared,ServicesEndpoint"
+            "value": [
+                "Microsoft Azure",
+                "ServicesData",
+                "ServicesShared",
+                "ServicesEndpoint"
+            ]
         },
         "roles": {
-            "value": "Service Server"
+            "value": [
+                "Service Server"
+            ]
         },
         "tenantTags": {
-            "value": "Deployment Style/Environment Deployment,Deployment Style/Tenant Deployment"
+            "value": [
+                "Deployment Style/Environment Deployment",
+                "Deployment Style/Tenant Deployment"
+            ]
         }
     }
 }

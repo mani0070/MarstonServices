@@ -18,7 +18,7 @@
       "type": "array"
     },
     "tenantTags": {
-      "type": "string"
+      "type": "array"
     }
   },
   "resources": [{
@@ -33,9 +33,9 @@
       "autoUpgradeMinorVersion": true,
       "settings": {
         "OctopusServerUrl": "[parameters('octopusServerUrl')]",
-        "Environments": "[split(parameters('environments'), ',')]",
-        "Roles": "[split(parameters('roles'), ',')]",
-        "TenantTags": "[split(parameters('tenantTags'), ',')]",
+        "Environments": "[parameters('environments')]",
+        "Roles": "[parameters('roles')]",
+        "TenantTags": "[parameters('tenantTags')]",
         "CommunicationMode": "Listen",
         "Port": 10933,
         "PublicHostNameConfiguration": "Custom",

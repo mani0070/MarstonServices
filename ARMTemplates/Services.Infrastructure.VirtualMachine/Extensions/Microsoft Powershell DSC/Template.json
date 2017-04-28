@@ -28,7 +28,6 @@
             "type": "DSC",
             "typeHandlerVersion": "2.20",
             "autoUpgradeMinorVersion": true,
-            "forceUodateTag": "[parameters('timestamp')]",
             "protectedSettings": {
                 "Items": {
                     "registrationKeyPrivate": "[parameters('registrationKey')]"
