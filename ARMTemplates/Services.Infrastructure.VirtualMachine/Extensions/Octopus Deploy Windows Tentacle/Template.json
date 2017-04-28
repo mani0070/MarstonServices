@@ -36,13 +36,13 @@
       "autoUpgradeMinorVersion": true,
       "settings": {
         "OctopusServerUrl": "[parameters('octopusServerUrl')]",
-        "Environments": "[parameters('environments')]",
+        "Environments": "[split(parameters('environments'), ',')]",
         "Roles": "[split(parameters('roles'), ',')]",
         "TenantTags": "[split(parameters('tenantTags'), ',')]",
-        "Tenants": "[parameters('tenants')]",
         "CommunicationMode": "Listen",
         "Port": 10933,
-        "PublicHostNameConfiguration": "ComputerName"
+        "PublicHostNameConfiguration": "Custom",
+        "CustomPublicHostName": "127.0.0.1"
       },
       "protectedSettings": {
         "ApiKey": "[parameters('apiKey')]"

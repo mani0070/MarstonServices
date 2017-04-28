@@ -17,16 +17,13 @@
             }
         },
         "environments": {
-            "value": "#{Octopus.Environment.Name}"
+            "value": "Microsoft Azure,ServicesData,ServicesShared,ServicesEndpoint"
         },
         "roles": {
-            "value": "#{Octopus.Machine.Roles}"
+            "value": "Service Server"
         },
         "tenantTags": {
-            "value": "#{Octopus.Machine.Tags}"
-        },
-        "tenants": {
-            "value": "#{Octopus.Machine.TenantIds}"
+            "value": "Deployment Style/Environment Deployment,Deployment Style/Tenant Deployment"
         }
     }
 }

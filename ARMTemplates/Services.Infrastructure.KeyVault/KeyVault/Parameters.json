@@ -6,10 +6,10 @@
             "value": "#{KeyVaultName}"
         },
         "servicePrincipalObjectId": {
-            "value": "#{OctopusAzureADObjectId}"
+            "value": "#{Azure.ActiveDirectory[Octopus].ObjectId}"
         },
         "azureUserObjectId": {
-            "value": "#{AdminAzureADObjectId}"
+            "value": "#{Azure.ActiveDirectory[Admin].ObjectId}"
         }
     }
 }
