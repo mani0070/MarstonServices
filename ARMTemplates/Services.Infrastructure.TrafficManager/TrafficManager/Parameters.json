@@ -6,7 +6,7 @@
             "value": "#{DeploymentChannel}"
         },
         "shortName": {
-            "value": "#{ShortName}"
+            "value": "#{AppNameShort}"
         }
     }
 }

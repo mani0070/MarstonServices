@@ -20,10 +20,8 @@
         "BluePrimaryName": "Green",
         "GreenPrimaryName": "Blue",
         "primaryName": "[variables(concat(parameters('secondaryName'), 'PrimaryName'))]",
-        "primaryPublicIpName": "[concat('ServicesPIP', variables('primaryName'))]",
-        "primaryPublicIpFqdn": "[concat(toLower(variables('primaryName')), '.', variables('dnsZoneName'))]",
-        "secondaryPublicIpFqdn": "[concat(toLower(parameters('secondaryName')), '.', variables('dnsZoneName'))]",
-        "secondaryPublicIpName": "[concat('ServicesPIP', parameters('secondaryName'))]"
+        "primaryTargetFqdn": "[concat(toLower(variables('primaryName')), '.', variables('dnsZoneName'))]",
+        "secondaryTargetFqdn": "[concat(toLower(parameters('secondaryName')), '.', variables('dnsZoneName'))]"
     },
     "resources": [{
         "type": "Microsoft.Network/trafficManagerProfiles",
@@ -46,7 +44,7 @@
                     "name": "[variables('primaryName')]",
                     "type": "Microsoft.Network/trafficManagerProfiles/externalEndpoints",
                     "properties": {
-                        "target": "[variables('primaryPublicIpFqdn')]",
+                        "target": "[variables('primaryTargetFqdn')]",
                         "endpointLocation": "[resourceGroup().location]",
                         "endpointStatus": "Enabled",
                         "priority": "10"
@@ -56,7 +54,7 @@
                     "name": "[parameters('secondaryName')]",
                     "type": "Microsoft.Network/trafficManagerProfiles/externalEndpoints",
                     "properties": {
-                        "target": "[variables('secondaryPublicIpFqdn')]",
+                        "target": "[variables('secondaryTargetFqdn')]",
                         "endpointLocation": "[resourceGroup().location]",
                         "endpointStatus": "Disabled",
                         "priority": "20"

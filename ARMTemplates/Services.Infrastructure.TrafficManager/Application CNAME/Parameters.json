@@ -6,7 +6,7 @@
             "value": "#{SharedResourceGroupName}"
         },
         "shortName": {
-            "value": "#{ShortName}"
+            "value": "#{AppNameShort}"
         }
     }
 }
