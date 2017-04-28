@@ -19,9 +19,6 @@
     },
     "tenantTags": {
       "type": "string"
-    },
-    "tenants": {
-      "type": "array"
     }
   },
   "resources": [{

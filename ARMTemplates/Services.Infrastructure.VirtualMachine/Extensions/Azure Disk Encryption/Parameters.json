@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "clientID": {
-            "value": "#{OctopusAzureADClientId}"
+            "value": "#{Azure.ActiveDirectory[Octopus].ClientId}"
         },
         "clientSecret": {
-            "value": "#{OctopusAzureADPassword}"
+            "value": "#{Azure.ActiveDirectory[Octopus].Password}"
         },
         "vmName": {
             "value": "#{VMName}"
