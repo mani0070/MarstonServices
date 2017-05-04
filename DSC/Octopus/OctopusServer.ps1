@@ -59,7 +59,7 @@ Script OctopusDeployConfiguration
                                             '--upgradeCheckWithStatistics', 'True', `
                                             '--webAuthenticationMode', 'UsernamePassword', `
                                             '--webForceSSL', 'False', `
-                                            '--webListenPrefixes', 'https://octopus.services.marston.me,http://localhost:81', `
+                                            '--webListenPrefixes', 'https://octopus.services.marston.me', `
                                             '--commsListenPort', '10943', `
                                             '--serverNodeName', 'Services Web', `
                                             '--masterKey', $using:OctopusMasterKey)
