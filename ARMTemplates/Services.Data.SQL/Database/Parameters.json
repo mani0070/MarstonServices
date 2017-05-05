@@ -6,7 +6,7 @@
             "value": "#{SqlServerName}"
         },
         "databaseName": {
-            "value": "#{Octopus.Deployment.Tenant.Name}"
+            "value": "#{AppNameShort}"
         }
     }
 }
