@@ -42,7 +42,7 @@
         {
             "type": "Microsoft.Sql/servers/firewallrules",
             "apiVersion": "2014-04-01-preview",
-            "location": "[resourceGroup().location]",
+            "location": "West Europe",
             "name": "[concat(parameters('sqlServerName'), '/Blue')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
@@ -55,7 +55,7 @@
         {
             "type": "Microsoft.Sql/servers/firewallrules",
             "apiVersion": "2014-04-01-preview",
-            "location": "[resourceGroup().location]",
+            "location": "West Europe",
             "name": "[concat(parameters('sqlServerName'), '/Green')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
