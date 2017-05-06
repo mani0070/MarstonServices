@@ -3,7 +3,7 @@
 .include "/Base/IIS/UrlRewrite2"
 .include "/Base/IIS/ARRv3"
 
-.include "/Base/SSMS"
+#.include "/Base/SSMS"
 
 .include "/TeamCity/Archive"
 .include "/TeamCity/BuildAgent"
