@@ -2,7 +2,7 @@ Environment TeamCityDataDir
 {
     Ensure = "Present" 
     Name = "TEAMCITY_DATA_PATH"
-    Value = 'D:\TeamCityData'
+    Value = 'C:\TeamCityData'
 }
 File TeamCityServerInstall
 {
@@ -20,10 +20,10 @@ Script TeamCityDataDirExtract
 {
     SetScript = {
         Copy-Item -Path "\\$($using:AzureStorageAccountName).file.core.windows.net\teamcity\TeamCity.zip" -Destination "D:\TeamCityData.zip" -Force -Verbose 
-        & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\TeamCityData.zip" -o"D:\TeamCityData"
+        & "${env:ProgramFiles}\7-Zip\7z.exe" x "D:\TeamCityData.zip" -o"C:\TeamCityData"
         if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 1) { throw "7z.exe exit code $LASTEXITCODE" }
     }
-    TestScript = { Test-Path 'D:\TeamCityData' }
+    TestScript = { Test-Path 'C:\TeamCityData' }
     GetScript = { @{} }
     DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
     PsDscRunAsCredential = $teamcityServiceCredential
