@@ -57,8 +57,8 @@
             "storageProfile": {
                 "imageReference": {
                     "publisher": "MicrosoftWindowsServer",
-                    "offer": "WindowsServer",
-                    "sku": "2016-Datacenter-with-Containers",
+                    "offer": "WindowsServer-HUB",
+                    "sku": "2016-Datacenter-HUB",
                     "version": "latest"
                 },
                 "osDisk": {
