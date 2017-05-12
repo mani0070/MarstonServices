@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmAdminUsername": {
+            "reference": {
+                "keyVault": {
+                    "id": "#{KeyVaultResourceId}"
+                },
+                "secretName": "VMAdminUsername"
+            }
+        },
+        "vmAdminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "#{KeyVaultResourceId}"
+                },
+                "secretName": "VMAdminPassword"
+            }
+        },
+        "customData": {
+            "value": "#{NodeCustomData}"
+        },
+        "keyVaultResourceId": {
+           "value": "#{KeyVaultResourceId}"
+        },
+        "servicesMarstonMeCertificateUrl": {
+            "reference": {
+                "keyVault": {
+                    "id": "#{KeyVaultResourceId}"
+                },
+                "secretName": "ServicesMarstonMeCertificateUrl"
+            }        },
+        "vmName": {
+            "value": "#{VMName}"
+        }
+    }
+}
