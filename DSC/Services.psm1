@@ -17,13 +17,10 @@ Configuration Services
 
     Node Web
     { 
-        .include "/Nodes/Shared"
         .include "/Nodes/Web"
     }
     Node CloudAgent
     { 
-        .include "/Nodes/Shared"
-        .include "/TeamCity/Archive"
-        .include "/TeamCity/BuildAgent"
+        .include "/Nodes/CloudAgent"
     }
 }
