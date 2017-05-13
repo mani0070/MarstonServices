@@ -41,5 +41,5 @@ Service TCBuildAgent
 {
     Name        = 'TCBuildAgent'
     State       = 'Running'
-    DependsOn   = @('[Script]TeamCityAgentConfig','[Service]TeamCity')
+    DependsOn   = @('[Script]TeamCityAgentConfig')
 }
