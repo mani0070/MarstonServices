@@ -10,5 +10,4 @@
 .include "/Software/AzureRM"
 .include "/Software/JDK"
 .include "/Software/MSBuildTools"
-.include "/Software/PackageManagement"
 .include "/Software/VisualStudioCode"

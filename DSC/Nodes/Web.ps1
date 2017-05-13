@@ -1,3 +1,5 @@
+.include "/Software/PackageManagement"
+
 .include "/Base/IIS/WindowsFeatures"
 .include "/Base/IIS/ExternalCache"
 .include "/Base/IIS/UrlRewrite2"
