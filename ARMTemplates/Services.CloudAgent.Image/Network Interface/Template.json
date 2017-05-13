@@ -2,12 +2,15 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "sharedResourceGroupName": {
+            "type": "string"
+        },
         "vmName": {
             "type": "string"
         }
     },
     "variables": {
-        "virtualNetworkId": "[resourceId('Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
+        "virtualNetworkId": "[resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
         "subnetId": "[concat(variables('virtualNetworkId'),'/subnets/', 'Default')]"
     },
     "resources": [{

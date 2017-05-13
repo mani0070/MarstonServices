@@ -4,6 +4,9 @@
     "parameters": {
         "vmName": {
             "value": "#{VMName[Agent]}"
+        },
+        "sharedResourceGroupName": {
+            "value": "#{SharedResourceGroupName}"
         }
     }
 }
