@@ -27,6 +27,9 @@ Script TeamCityAgentConfig
         & "$($env:SystemDrive)\buildAgent\bin\changeAgentProps.bat" serverUrl 'https://teamcity.services.marston.me' "$($env:SystemDrive)\buildAgent\conf\buildAgent.properties" *>&1 | Write-Verbose
         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from TeamCity Agent Configuration: changeAgentProps serverUrl" }
 
+        & "$($env:SystemDrive)\buildAgent\bin\changeAgentProps.bat" name $env:COMPUTERNAME "$($env:SystemDrive)\buildAgent\conf\buildAgent.properties" *>&1 | Write-Verbose
+        if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from TeamCity Agent Configuration: changeAgentProps name" }
+
         & "$($env:SystemDrive)\buildAgent\launcher\bin\TeamCityAgentService-windows-x86-32.exe" -i "$($env:SystemDrive)\buildAgent\launcher\conf\wrapper.conf" *>&1 | Write-Verbose
         if ($LASTEXITCODE -ne 0) { throw "Exit code $LASTEXITCODE from TeamCity Agent Configuration: TeamCityAgentService-windows-x86-64.exe" }
 
