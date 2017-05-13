@@ -7,7 +7,10 @@
         },
         "publicIpAddressName": {
             "type": "string"
-        }
+        },
+        "vmName": {
+            "type": "string"
+            }
     },
     "variables": {
         "virtualNetworkId": "[resourceId('Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
@@ -16,7 +19,7 @@
     "resources": [{
             "apiVersion": "2016-12-01",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "NetworkInterface",
+            "name": "[parameters('vmName')]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "ipConfigurations": [

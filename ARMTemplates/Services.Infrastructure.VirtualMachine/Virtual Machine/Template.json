@@ -72,7 +72,7 @@
             },
             "networkProfile": {
                 "networkInterfaces": [{
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces', 'NetworkInterface')]"
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('vmName'))]"
                 }]
             }
         }

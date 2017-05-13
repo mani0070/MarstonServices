@@ -18,21 +18,8 @@
                 "secretName": "VMAdminPassword"
             }
         },
-        "customData": {
-            "value": "#{NodeCustomData}"
-        },
-        "keyVaultResourceId": {
-           "value": "#{KeyVaultResourceId}"
-        },
-        "servicesMarstonMeCertificateUrl": {
-            "reference": {
-                "keyVault": {
-                    "id": "#{KeyVaultResourceId}"
-                },
-                "secretName": "ServicesMarstonMeCertificateUrl"
-            }        },
         "vmName": {
-            "value": "#{VMName}"
+            "value": "#{VMName[Agent]}"
         }
     }
 }

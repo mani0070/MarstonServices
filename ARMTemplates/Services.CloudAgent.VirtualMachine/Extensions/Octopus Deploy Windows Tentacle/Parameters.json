@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vmName": {
-            "value": "#{VMName}"
+            "value": "#{VMName[Agent]}"
         },
         "octopusServerUrl": {
             "value": "#{Octopus.Web.BaseUrl}"
@@ -19,6 +19,12 @@
         "roles": {
             "value": [
                 "TeamCity Agent"
+            ]
+        },
+        "tenantTags": {
+            "value": [
+                "Deployment Style/Environment Deployment",
+                "Deployment Style/Tenant Deployment"
             ]
         }
     }

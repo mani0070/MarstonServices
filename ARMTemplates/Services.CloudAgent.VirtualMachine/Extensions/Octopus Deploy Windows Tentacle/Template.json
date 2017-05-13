@@ -36,10 +36,9 @@
         "Environments": "[parameters('environments')]",
         "Roles": "[parameters('roles')]",
         "TenantTags": "[parameters('tenantTags')]",
-        "CommunicationMode": "Listen",
-        "Port": 10933,
-        "PublicHostNameConfiguration": "Custom",
-        "CustomPublicHostName": "127.0.0.1"
+        "MachinePolicy": "TeamCity Cloud Agents",
+        "CommunicationMode": "Poll",
+        "Port": 10943
       },
       "protectedSettings": {
         "ApiKey": "[parameters('apiKey')]"

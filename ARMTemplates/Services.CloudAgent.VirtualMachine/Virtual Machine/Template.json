@@ -12,15 +12,6 @@
         "vmAdminPassword": {
             "type": "securestring"
         },
-        "customData": {
-            "type": "string"
-        },
-        "keyVaultResourceId": {
-            "type": "string"
-        },
-        "servicesMarstonMeCertificateUrl": {
-            "type": "string"
-        },
         "vmName": {
             "type": "string"
         }
@@ -38,26 +29,16 @@
                 "computerName": "[parameters('vmName')]",
                 "adminUsername": "[parameters('vmAdminUsername')]",
                 "adminPassword": "[parameters('vmAdminPassword')]",
-                "customData": "[base64(parameters('customData'))]",
                 "windowsConfiguration": {
                     "enableAutomaticUpdates": true,
                     "provisionVMAgent": true
-                },
-                "secrets": [{
-                    "sourceVault": {
-                        "id": "[parameters('keyVaultResourceId')]"
-                    },
-                    "vaultCertificates": [{
-                        "certificateUrl": "[parameters('servicesMarstonMeCertificateUrl')]",
-                        "certificateStore": "My"
-                    }]
-                }]
+                }
             },
             "storageProfile": {
                 "imageReference": {
-                    "publisher": "MicrosoftWindowsServer",
-                    "offer": "WindowsServer",
-                    "sku": "2016-Datacenter-with-Containers",
+                    "publisher": "MicrosoftVisualStudio",
+                    "offer": "VisualStudio",
+                    "sku": "VS-2017-Ent-WS2016",
                     "version": "latest"
                 },
                 "osDisk": {
@@ -72,7 +53,7 @@
             },
             "networkProfile": {
                 "networkInterfaces": [{
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces', 'NetworkInterface')]"
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('vmName'))]"
                 }]
             }
         }
