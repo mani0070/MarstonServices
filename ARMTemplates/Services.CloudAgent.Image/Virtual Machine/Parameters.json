@@ -19,7 +19,7 @@
             }
         },
         "vmName": {
-            "value": "#{VMName[Agent]}"
+            "value": "#{VM[Agent].Name}"
         }
     }
 }
