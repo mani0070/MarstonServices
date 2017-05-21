@@ -10,7 +10,7 @@
         }
     },
     "variables": {
-        "virtualNetworkId": "[resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
+        "virtualNetworkId": "[resourceId('Microsoft.Network/virtualNetworks', 'VirtualNetwork')]",
         "subnetId": "[concat(variables('virtualNetworkId'),'/subnets/', 'Default')]"
     },
     "resources": [{
