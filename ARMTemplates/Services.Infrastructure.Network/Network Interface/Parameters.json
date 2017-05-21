@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "publicIpAddressName": {
-            "value": "ServicesPIP#{Octopus.Release.Channel.Name}"
+            "value": "#{PublicIpAddressName}"
         },
         "sharedResourceGroupName": {
-            "value": "#{SharedResourceGroupName}"
+            "value": "#{ResourceGroup[Shared].Name}"
         },
         "vmName": {
-            "value": "#{VMName}"
+            "value": "#{VM[Web].Name}"
         }
     }
 }
