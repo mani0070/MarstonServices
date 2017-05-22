@@ -28,10 +28,10 @@
         }
     },
     "resources": [{
-            "apiVersion": "2014-04-01-preview",
+            "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Sql/servers",
             "name": "[parameters('sqlServerName')]",
-            "location": "West Europe",
+            "location": "[resourceGroup().location]",
             "kind": "v12.0",
             "properties": {
                 "administratorLogin": "[parameters('sqlAdminUsername')]",
@@ -41,8 +41,8 @@
         },
         {
             "type": "Microsoft.Sql/servers/firewallrules",
-            "apiVersion": "2014-04-01-preview",
-            "location": "West Europe",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[resourceGroup().location]",
             "name": "[concat(parameters('sqlServerName'), '/Blue')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
@@ -54,8 +54,8 @@
         },
         {
             "type": "Microsoft.Sql/servers/firewallrules",
-            "apiVersion": "2014-04-01-preview",
-            "location": "West Europe",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[resourceGroup().location]",
             "name": "[concat(parameters('sqlServerName'), '/Green')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"

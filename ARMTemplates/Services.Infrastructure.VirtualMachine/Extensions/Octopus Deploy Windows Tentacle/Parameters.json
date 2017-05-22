@@ -18,10 +18,9 @@
         },
         "environments": {
             "value": [
-                "Microsoft Azure",
-                "ServicesData",
-                "ServicesShared",
-                "ServicesEndpoint"
+                "Services - Shared",
+                "Services - Blue",
+                "Services - Green"
             ]
         },
         "roles": {

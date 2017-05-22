@@ -15,13 +15,13 @@
             "value": "#{SharedResourceGroupName}"
         },
         "blueSubscriptionId": {
-            "value": "#{OctopusAzureSubscriptionId[Blue]}"
+            "value": "#{Azure[#{Azure.Blue.Channel}].SubscriptionId}"
         },
         "bluePublicIpName": {
             "value": "ServicesPIPBlue"
         },
         "greenSubscriptionId": {
-            "value": "#{OctopusAzureSubscriptionId[Green]}"
+            "value": "#{Azure[#{Azure.Green.Channel}].SubscriptionId}"
         },
         "greenPublicIpName": {
             "value": "ServicesPIPGreen"
