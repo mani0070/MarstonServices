@@ -12,7 +12,7 @@
             "value": "#{AdminPassword}"
         },
         "sharedResourceGroupName": {
-            "value": "#{SharedResourceGroupName}"
+            "value": "#{ResourceGroup[Shared].Name}"
         },
         "blueSubscriptionId": {
             "value": "#{Azure[#{Azure.Blue.Channel}].SubscriptionId}"
