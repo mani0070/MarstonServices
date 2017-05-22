@@ -41,7 +41,7 @@
         },
         {
             "type": "Microsoft.Sql/servers/firewallrules",
-            "apiVersion": "2015-05-01-preview",
+            "apiVersion": "2014-04-01-preview",
             "location": "[resourceGroup().location]",
             "name": "[concat(parameters('sqlServerName'), '/Blue')]",
             "dependsOn": [
@@ -54,7 +54,7 @@
         },
         {
             "type": "Microsoft.Sql/servers/firewallrules",
-            "apiVersion": "2015-05-01-preview",
+            "apiVersion": "2014-04-01-preview",
             "location": "[resourceGroup().location]",
             "name": "[concat(parameters('sqlServerName'), '/Green')]",
             "dependsOn": [

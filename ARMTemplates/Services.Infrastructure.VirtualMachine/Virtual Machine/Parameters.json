@@ -32,7 +32,7 @@
                 "secretName": "ServicesMarstonMeCertificateUrl"
             }        },
         "vmName": {
-            "value": "#{VMName}"
+            "value": "#{VM[Web].Name}"
         }
     }
 }

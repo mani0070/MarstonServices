@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sharedResourceGroupName": {
-            "value": "#{SharedResourceGroupName}"
+            "value": "#{ResourceGroup[Shared].Name}"
         },
         "blueSubscriptionId": {
-            "value": "#{OctopusAzureSubscriptionId[Blue]}"
+            "value": "#{Azure[#{Azure.Blue.Channel}].SubscriptionId}"
         },
         "bluePublicIpName": {
             "value": "ServicesPIPBlue"
         },
         "greenSubscriptionId": {
-            "value": "#{OctopusAzureSubscriptionId[Green]}"
+            "value": "#{Azure[#{Azure.Green.Channel}].SubscriptionId}"
         },
         "greenPublicIpName": {
             "value": "ServicesPIPGreen"

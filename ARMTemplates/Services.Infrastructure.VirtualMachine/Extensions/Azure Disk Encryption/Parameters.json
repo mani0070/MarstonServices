@@ -9,7 +9,7 @@
             "value": "#{Azure.ActiveDirectory[Octopus].Password}"
         },
         "vmName": {
-            "value": "#{VMName}"
+            "value": "#{VM[Web].Name}"
         },
         "keyVaultName": {
             "value": "#{KeyVaultName}"
