@@ -38,11 +38,11 @@ Script TeamCityAgentConfig
     }
     TestScript = { $null -ne (Get-Service TCBuildAgent -ErrorAction Ignore) }
     GetScript = { @{} }
-    DependsOn = '[File]TeamCityAgentInstall'
+    DependsOn = @('[File]TeamCityAgentInstall','[Environment]JavaHome')
 }
 Service TCBuildAgent
 {
     Name        = 'TCBuildAgent'
     State       = 'Running'
-    DependsOn   = @('[Script]TeamCityAgentConfig')
+    DependsOn   = @('[Script]TeamCityAgentConfig','[xFirewall]TeamCityAgentFirewall')
 }

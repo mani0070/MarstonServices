@@ -25,7 +25,7 @@ Script TeamCityDataDirExtract
     }
     TestScript = { Test-Path 'C:\TeamCityData' }
     GetScript = { @{} }
-    DependsOn = '[Script]SetTeamCityAzureFileshareCmdkey'
+    DependsOn = @('[Script]SetTeamCityAzureFileshareCmdkey','[Environment]TeamCityDataDir')
     PsDscRunAsCredential = $teamcityServiceCredential
 }
 Script TeamCityServerConfig
@@ -36,7 +36,7 @@ Script TeamCityServerConfig
     }
     TestScript = { $null -ne (Get-Service TeamCity -ErrorAction Ignore) }
     GetScript = { @{} }
-    DependsOn = @('[File]TeamCityServerInstall','[Script]TeamCityDataDirExtract')
+    DependsOn = @('[File]TeamCityServerInstall','[Script]TeamCityDataDirExtract','[Environment]JavaHome')
 }
 Service TeamCity
 {
@@ -44,5 +44,5 @@ Service TeamCity
     Credential  = $teamcityServiceCredential
     StartupType = 'Automatic'
     State       = 'Running'
-    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups','[Script]SetTeamCityAzureFileshareCmdkey','[Script]TeamCityDataDirExtract')
+    DependsOn   = @('[Script]TeamCityServerConfig','[Script]SetTeamCityUserGroups')
 }

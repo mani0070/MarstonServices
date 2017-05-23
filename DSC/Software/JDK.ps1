@@ -7,21 +7,21 @@ Script JDKDownloader
         $cookie.Value = "accept-securebackup-cookie"
         $cookie.Domain = ".oracle.com"
         $session.Cookies.Add($cookie);
-        $uri = 'http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-windows-i586.exe'
+        $uri = 'http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-windows-i586.exe '
         Invoke-WebRequest -Uri $uri -UseBasicParsing -WebSession $session -OutFile 'D:\Installers\JDKInstall.exe'
     }
     TestScript = {
-        $hash = 'E71FC3EB9F895EBA5C2836B05D627884EDD0157A'
+        $hash = '66B505E5AE2D9335622494200E3A81463D026732'
         ((Test-Path 'D:\Installers\JDKInstall.exe') -and (Get-FileHash -Path 'D:\Installers\JDKInstall.exe' -Algorithm SHA1 | % Hash) -eq $hash)
     }
     GetScript = { @{} }
 }
 $javaInstallPath = 'C:\jdk8'
-$id = "180121"
+$id = "180131"
 xPackage Java
 {
     Ensure = 'Present'
-    Name = "Java SE Development Kit 8 Update 121"
+    Name = "Java SE Development Kit 8 Update 131"
     Path = "D:\Installers\JDKInstall.exe"
     ProductID = "32A3A4F4-B792-11D6-A78A-00B0D0${id}"
     Arguments = "/s ADDLOCAL=`"ToolsFeature,PublicjreFeature`" INSTALLDIR=$javaInstallPath INSTALL_SILENT=Enable REBOOT=Disable /L D:\Installers\JDKInstall.log"
