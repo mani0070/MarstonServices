@@ -39,7 +39,7 @@
         "CommunicationMode": "Listen",
         "Port": 10933,
         "PublicHostNameConfiguration": "Custom",
-        "CustomPublicHostName": "127.0.0.1"
+        "CustomPublicHostName": "[parameters('vmName')]"
       },
       "protectedSettings": {
         "ApiKey": "[parameters('apiKey')]"
