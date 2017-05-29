@@ -45,7 +45,6 @@
                     "name": "[concat(parameters('vmName'),'-OS')]",
                     "caching": "ReadWrite",
                     "createOption": "FromImage",
-                    "diskSizeGB": "100",
                     "managedDisk": {
                         "storageAccountType": "Premium_LRS"
                     }
