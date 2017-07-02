@@ -18,7 +18,7 @@
         "keyVaultResourceId": {
             "type": "string"
         },
-        "servicesMarstonMeCertificateUrl": {
+        "octopusServicesMarstonMeCertificateUrl": {
             "type": "string"
         },
         "vmName": {
@@ -48,7 +48,7 @@
                         "id": "[parameters('keyVaultResourceId')]"
                     },
                     "vaultCertificates": [{
-                        "certificateUrl": "[parameters('servicesMarstonMeCertificateUrl')]",
+                        "certificateUrl": "[parameters('octopusServicesMarstonMeCertificateUrl')]",
                         "certificateStore": "My"
                     }]
                 }]

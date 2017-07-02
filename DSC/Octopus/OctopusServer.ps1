@@ -46,8 +46,8 @@ Script OctopusDeployConfiguration
                 throw "Octopus Server $Command exit code $LASTEXITCODE"
             }
         }
-        & netsh.exe --% http delete sslcert ipport=0.0.0.0:443
-        & netsh.exe --% http add sslcert ipport=0.0.0.0:443 appid={E2096A4C-2391-4BE1-9F17-E353F930E7F1} certhash=1051675930C82BFFA18281E8D8EA70EB993267D0 certstorename=My
+        & netsh.exe http delete sslcert ipport=0.0.0.0:443
+        & netsh.exe http add sslcert ipport=0.0.0.0:443 appid=`{E2096A4C-2391-4BE1-9F17-E353F930E7F1`} certhash=$using:OctopusCertThumbprint certstorename=My
         if ($LASTEXITCODE -ne 0) {
             throw "netsh.exe exit code $LASTEXITCODE"
         }

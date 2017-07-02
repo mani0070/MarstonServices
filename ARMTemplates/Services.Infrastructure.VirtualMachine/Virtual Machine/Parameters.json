@@ -24,12 +24,12 @@
         "keyVaultResourceId": {
            "value": "#{KeyVaultResourceId}"
         },
-        "servicesMarstonMeCertificateUrl": {
+        "octopusServicesMarstonMeCertificateUrl": {
             "reference": {
                 "keyVault": {
                     "id": "#{KeyVaultResourceId}"
                 },
-                "secretName": "ServicesMarstonMeCertificateUrl"
+                "secretName": "OctopusServicesMarstonMeCertificateUrl"
             }        },
         "vmName": {
             "value": "#{VM[Web].Name}"

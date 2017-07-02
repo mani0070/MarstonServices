@@ -6,6 +6,7 @@ Configuration Services
         $AzureStorageAccountKey,
         $OctopusConnectionString,
         $OctopusMasterKey,
+        $OctopusCertThumbprint,
         $ProGetVersion
     )
 
