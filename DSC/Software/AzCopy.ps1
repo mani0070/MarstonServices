@@ -7,9 +7,9 @@ xRemoteFile AzCopyDownloader
 xPackage AzCopy
 {
     Ensure = 'Present'
-    Name = 'Microsoft Azure Storage Tools - v5.2.0'
+    Name = 'Microsoft Azure Storage Tools - v6.1.0'
     Path  = 'D:\Installers\azcopy.msi'
-    ProductId = '89B7B8B5-CC31-4C78-8E83-1E5B9506C322'
+    ProductId = '1D24B7AC-AFB4-44D4-928B-5CB14ABF4839'
     Arguments = "/quiet"
     DependsOn = "[xRemoteFile]AzCopyDownloader"
 }
